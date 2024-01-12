@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FixCar2.0</string>
+    <string name="title_activity_evacuator_maps">EvacuatorMapsActivity</string>
+</resources>

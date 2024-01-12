@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "947085184523",
+    "project_id": "fixcar2-0",
+    "storage_bucket": "fixcar2-0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947085184523:android:55bfdc20ecb2c15381010e",
+        "android_client_info": {
+          "package_name": "com.example.fixcar20"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqmNArAqMnAn4J458Kg6xWbA0UDIMQxEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
