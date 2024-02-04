@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FixCar2.0</string>
     <string name="title_activity_evacuator_maps">EvacuatorMapsActivity</string>
+    <string name="my_map_api_key">AIzaSyAzlGR7gavzkHCpvxLBQXMD-73ylzVWZN4</string>
 </resources>
