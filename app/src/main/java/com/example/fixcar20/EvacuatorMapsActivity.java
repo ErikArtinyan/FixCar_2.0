@@ -1,12 +1,16 @@
 package com.example.fixcar20;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -22,9 +26,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 public class EvacuatorMapsActivity extends FragmentActivity implements OnMapReadyCallback {
+    private Handler handler;
+    private Runnable runnable;
 
     private final int FINE_PERMISSION_CODE = 1;
-    private GoogleMap mMap;
+    private GoogleMap myMap;
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
     private ActivityEvacuatorMapsBinding binding;
@@ -72,13 +78,65 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                myMap = googleMap;
 
-        // Add a marker in Vanadzor and move the camera
-        LatLng vanadzor = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                // Add a marker in Vanadzor and move the camera
+                LatLng vanadzor = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 
-        mMap.addMarker(new MarkerOptions().position(vanadzor).title("Моё местоположение"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(vanadzor));
+                myMap.addMarker(new MarkerOptions().position(vanadzor).title("Моё местоположение"));
+                myMap.moveCamera(CameraUpdateFactory.newLatLng(vanadzor));
+                handler.postDelayed(this,5000);
+            }
+
+        };
+        handler.post(runnable);
+
+
+    }
+    protected void onDestroy() {
+        super.onDestroy();
+        // Остановка выполнения кода при уничтожении Activity
+        handler.removeCallbacks(runnable);
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.mapNone){
+            myMap.setMapType(GoogleMap.MAP_TYPE_NONE);
+        }
+
+        if (id == R.id.mapNormal){
+            myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        }
+
+        if (id == R.id.mapSputnik){
+            myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        }
+
+        if (id == R.id.mapHybrid){
+            myMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        }
+
+        if (id == R.id.mapTerrain){
+            myMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -92,4 +150,6 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
             }
         }
     }
+
+
 }

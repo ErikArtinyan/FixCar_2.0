@@ -41,16 +41,5 @@
         </ProgressBar>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text="Developer by Erik"
-        android:textColor="@color/white">
-
-    </TextView>
-
 
 </RelativeLayout>
