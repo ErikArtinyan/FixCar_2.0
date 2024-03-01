@@ -7,12 +7,15 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationRequest;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,6 +27,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.fixcar20.databinding.ActivityEvacuatorMapsBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class EvacuatorMapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private Handler handler;
@@ -31,21 +39,43 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
 
     private final int FINE_PERMISSION_CODE = 1;
     private GoogleMap myMap;
-    Location currentLocation;
+    Location lastLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
+    BottomNavigationView menu_map;
     private ActivityEvacuatorMapsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+       fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
 
         binding = ActivityEvacuatorMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        menu_map = findViewById(R.id.menu_map);
+        menu_map.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.mapNormal){
 
-
+                    onOptionsItemSelected(item);
+                }
+                if(item.getItemId() == R.id.mapSputnik){
+                    onOptionsItemSelected(item);
+                }
+                return true;
+            }
+        });
+        menu_map.setSelectedItemId(R.id.mapSputnik);
     }
+
+
+
+
+
 
     /**
      * Manipulates the map once available.
@@ -68,7 +98,7 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
             @Override
             public void onSuccess(Location location) {
                 if (location != null){
-                    currentLocation = location;
+                    lastLocation = location;
 
                     SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                     mapFragment.getMapAsync(EvacuatorMapsActivity.this);
@@ -76,27 +106,65 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
             }
         });
     }
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        handler = new Handler();
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                myMap = googleMap;
 
-                // Add a marker in Vanadzor and move the camera
-                LatLng vanadzor = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+@Override
+public void onMapReady(GoogleMap googleMap) {
+    myMap = googleMap;
+    myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+    handler = new Handler();
+    final GoogleMap myMap = googleMap; // Финализируем переменную myMap
+    final MarkerOptions markerOptions = new MarkerOptions().title("Моё местоположение"); // Создаем настройки для маркера
 
-                myMap.addMarker(new MarkerOptions().position(vanadzor).title("Моё местоположение"));
-                myMap.moveCamera(CameraUpdateFactory.newLatLng(vanadzor));
-                handler.postDelayed(this,5000);
-            }
+    myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE); // Установить тип карты на сателлитарную
 
-        };
-        handler.post(runnable);
+    runnable = new Runnable() {
+        @Override
+        public void run() {
+            // Обновляем местоположение маркера
+            LatLng newLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+            markerOptions.position(newLocation);
 
+            // Удаляем предыдущий маркер и добавляем новый с обновленными координатами
+            myMap.clear();
+            myMap.addMarker(markerOptions);
 
+            // Перемещаем камеру к новым координатам
+            myMap.moveCamera(CameraUpdateFactory.newLatLng(newLocation));
+
+            // Планируем выполнение Runnable через 30 секунд
+            handler.postDelayed(this, 30000);
+        }
+    };
+
+    // Запускаем выполнение Runnable
+    handler.post(runnable);
+}
+
+    public void onLocationChanged(Location location)
+    {
+        Location lastlocation = location;
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        myMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        myMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference EvacuatorAvalablityRef = FirebaseDatabase.getInstance().getReference().child("Evacuator Available");
+
+        GeoFire geoFire = new GeoFire(EvacuatorAvalablityRef);
+        geoFire.setLocation(userID, new GeoLocation(location.getLatitude(), location.getLongitude()));
     }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference EvacuatorAvalablityRef = FirebaseDatabase.getInstance().getReference().child("Evacuator Available");
+
+        GeoFire geoFire = new GeoFire(EvacuatorAvalablityRef);
+        geoFire.removeLocation(userID);
+    }
+
     protected void onDestroy() {
         super.onDestroy();
         // Остановка выполнения кода при уничтожении Activity
@@ -105,39 +173,31 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        int id = item.getItemId();
-
-        if (id == R.id.mapNone){
-            myMap.setMapType(GoogleMap.MAP_TYPE_NONE);
-        }
-
-        if (id == R.id.mapNormal){
-            myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        }
-
-        if (id == R.id.mapSputnik){
-            myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-        }
-
-        if (id == R.id.mapHybrid){
-            myMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        }
-
-        if (id == R.id.mapTerrain){
-            myMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+ //  @Override
+ //  public boolean onOptionsItemSelected(MenuItem item) {
+ //      int id = item.getItemId(); // Получаем идентификатор выбранного пункта меню
+ //      // Определяем действие в зависимости от идентификатора
+ //      if (id == R.id.mapNone) {
+ //          myMap.setMapType(GoogleMap.MAP_TYPE_NONE);
+ //          return true;
+ //      } else if (id == R.id.mapNormal) {
+ //          myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+ //          return true;
+ //      } else if (id == R.id.mapSputnik) {
+ //          myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+ //          return true;
+ //      } else if (id == R.id.mapHybrid) {
+ //          myMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+ //          return true;
+ //      } else if (id == R.id.mapTerrain) {
+ //          myMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+ //          return true;
+ //      } else {
+ //          return super.onOptionsItemSelected(item);
+ //      }
+ //  }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -150,6 +210,8 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
             }
         }
     }
+
+
 
 
 }

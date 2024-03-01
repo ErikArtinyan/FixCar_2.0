@@ -1,23 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/mapNone"
-        android:title="Пусто"/>
-
+        android:title="None"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/mapNormal"
-        android:title="Normal"/>
-
+        android:title="Normal"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/mapSputnik"
-        android:title="Спутник"/>
-
+        android:title="Sputnik"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/mapHybrid"
-        android:title="Гибрид"/>
-
+        android:title="Hybrid"/>
     <item
         android:id="@+id/mapTerrain"
         android:title="Terrain"/>
-
 </menu>
