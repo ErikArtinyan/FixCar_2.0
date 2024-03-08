@@ -13,6 +13,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,13 +41,27 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
 
         binding = ActivityCustomersMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        Switch mapTypeSwitch = findViewById(R.id.map_type_switch);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+        mapTypeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // Проверяем состояние Switch
+                if (isChecked) {
+                    // Если Switch включен, устанавливаем тип карты на обычный
+                    mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                } else {
+                    // Если Switch выключен, устанавливаем тип карты на спутниковый
+                    mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                }
+            }
+        });
     }
+
+
 
     /**
      * Manipulates the map once available.

@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     try
                     {
-                        sleep(5000);
+                        sleep(1500);
                     }
                     catch (Exception e)
                     {
