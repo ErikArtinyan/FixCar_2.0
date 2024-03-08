@@ -1,11 +1,13 @@
 package com.example.fixcar20;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.view.View;
@@ -14,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,23 +25,51 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class EvacuatorMapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
-    private static final int ACCURACY_THRESHOLD_METERS = 20;
-    private static final float ZOOM_LEVEL = 17.0f;
+
+    static final int ACCURACY_THRESHOLD_METERS = 20;
+    static final float ZOOM_LEVEL = 17.0f;
 
     private GoogleMap mMap;
     private Circle userCircle;
     private LocationManager locationManager;
-    //pushhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+
+    private Button LogoutEvacuatorButton, SettingsEvacuatorButton;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private Boolean currentLogoutEvacuatorStatus;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evacuator_maps);
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
+        LogoutEvacuatorButton = (Button)findViewById(R.id.evacuator_logout_button);
+        SettingsEvacuatorButton = (Button)findViewById(R.id.evacuator_settings_button);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        LogoutEvacuatorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentLogoutEvacuatorStatus = true;
+                mAuth.signOut();
+
+                LogoutEvacuator();
+                DisconnectEvacuator();
+            }
+        });
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -64,6 +96,8 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
             }
         });
     }
+
+
 
 
     @Override
@@ -103,6 +137,13 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
                 userCircle.remove();
             }
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, ZOOM_LEVEL));
+
+            String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            DatabaseReference EvacuatorAvalablityRef = FirebaseDatabase.getInstance().getReference().child("Evacuator Avaiable");
+
+
+            GeoFire geoFire = new GeoFire(EvacuatorAvalablityRef);
+            geoFire.setLocation(userID, new GeoLocation(location.getLatitude(), location.getLongitude()));
         }
     }
 
@@ -131,4 +172,31 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
             }
         }
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (!currentLogoutEvacuatorStatus){
+
+            DisconnectEvacuator();
+        }
+    }
+
+    private void DisconnectEvacuator()
+    {
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference EvacuatorAvalablityRef = FirebaseDatabase.getInstance().getReference().child("Evacuator Avaiable");
+
+        GeoFire geoFire = new GeoFire(EvacuatorAvalablityRef);
+        geoFire.removeLocation(userID);
+    }
+
+    private void LogoutEvacuator()
+    {
+        Intent welcomeIntent = new Intent(EvacuatorMapsActivity.this, WelcomeActivity.class);
+        startActivity(welcomeIntent);
+        finish();
+    }
+
 }

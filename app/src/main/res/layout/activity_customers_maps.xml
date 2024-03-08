@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EvacuatorMapsActivity"
-    android:background="@color/light_gray">
+    tools:context=".CustomersMapsActivity">
 
     <fragment
         android:id="@+id/map"
@@ -18,7 +16,7 @@
         android:id="@+id/map_type_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/evacuator_settings_button"
+        android:layout_below="@id/customer_settings_button"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="227dp"
@@ -26,10 +24,11 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:checked="false"
-        android:text="Satellite"></Switch>
+        android:text="Satellite"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <Button
-        android:id="@+id/evacuator_settings_button"
+        android:id="@+id/customer_settings_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/light_gray"
@@ -41,12 +40,24 @@
         />
 
     <Button
-        android:id="@+id/evacuator_logout_button"
+        android:id="@+id/customer_logout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:layout_toRightOf="@id/evacuator_settings_button"
+        android:layout_toRightOf="@id/customer_settings_button"
         android:backgroundTint="@color/light_gray"
         android:text="Выйти"
         android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/customer_order_evacuator_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@id/customer_settings_button"
+        android:backgroundTint="@color/light_gray"
+        android:text="Вызвать эвакуатор"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"/>
+
 </RelativeLayout>

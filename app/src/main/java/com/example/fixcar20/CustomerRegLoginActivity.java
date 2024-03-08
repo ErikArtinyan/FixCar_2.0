@@ -1,6 +1,7 @@
 package com.example.fixcar20;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -95,6 +96,8 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
                 {
                     Toast.makeText(CustomerRegLoginActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
+                    Intent customerIntent = new Intent(CustomerRegLoginActivity.this, CustomersMapsActivity.class );
+                    startActivity(customerIntent);
                 }
                 else {
                     Toast.makeText(CustomerRegLoginActivity.this, "Произошла ошибка, попробуйте снова", Toast.LENGTH_SHORT).show();
@@ -117,6 +120,8 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
                 {
                     Toast.makeText(CustomerRegLoginActivity.this, " Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
+                    Intent customerIntent = new Intent(CustomerRegLoginActivity.this, CustomersMapsActivity.class );
+                    startActivity(customerIntent);
                 }
                 else {
                     Toast.makeText(CustomerRegLoginActivity.this, "Ошибка", Toast.LENGTH_SHORT).show();
