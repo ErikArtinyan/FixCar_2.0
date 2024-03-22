@@ -124,6 +124,7 @@ public class EvacuatorRegLoginActivity extends AppCompatActivity {
                     EvacuatorDatabaseRef = FirebaseDatabase.getInstance().getReference()
                             .child("Users").child("Evacuators").child(OnlineEvacuatorID);
 
+
                     // Здесь вы можете добавить дополнительные данные, которые вы хотите сохранить в базе данных
                     // Например:
                     EvacuatorDatabaseRef.child("email").setValue(email);
