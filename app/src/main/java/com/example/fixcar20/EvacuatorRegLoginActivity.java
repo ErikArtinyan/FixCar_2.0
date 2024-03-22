@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class EvacuatorRegLoginActivity extends AppCompatActivity {
 
@@ -24,6 +27,9 @@ public class EvacuatorRegLoginActivity extends AppCompatActivity {
     EditText emailET, passwordET;
 
     FirebaseAuth mAuth;
+    DatabaseReference EvacuatorDatabaseRef;
+    String OnlineEvacuatorID;
+
     ProgressDialog loadingBar;
 
     @Override
@@ -104,8 +110,7 @@ public class EvacuatorRegLoginActivity extends AppCompatActivity {
         });
     }
 
-    private void RegisterEvacuator(String email, String password)
-    {
+    private void RegisterEvacuator(String email, String password) {
         loadingBar.setTitle("Регистрация эвакуаторщика");
         loadingBar.setMessage("Пожалуйста, дождитесь загрузки");
         loadingBar.show();
@@ -113,14 +118,23 @@ public class EvacuatorRegLoginActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful())
-                {
-                    Toast.makeText(EvacuatorRegLoginActivity.this, " Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
-                    loadingBar.dismiss();
+                if(task.isSuccessful()) {
+                    OnlineEvacuatorID = mAuth.getCurrentUser().getUid();
+                    Log.d("Firbase","Firbase");
+                    EvacuatorDatabaseRef = FirebaseDatabase.getInstance().getReference()
+                            .child("Users").child("Evacuators").child(OnlineEvacuatorID);
+
+                    // Здесь вы можете добавить дополнительные данные, которые вы хотите сохранить в базе данных
+                    // Например:
+                    EvacuatorDatabaseRef.child("email").setValue(email);
+
                     Intent evacuatorIntent = new Intent(EvacuatorRegLoginActivity.this, EvacuatorMapsActivity.class);
                     startActivity(evacuatorIntent);
-                }
-                else {
+
+                    Toast.makeText(EvacuatorRegLoginActivity.this, " Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
+                    loadingBar.dismiss();
+
+                } else {
                     Toast.makeText(EvacuatorRegLoginActivity.this, "Ошибка", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                 }
