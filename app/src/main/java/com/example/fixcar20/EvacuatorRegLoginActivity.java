@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,7 +25,7 @@ public class EvacuatorRegLoginActivity extends AppCompatActivity {
 
     TextView evacuatorStatus, question;
     Button signInBtn, signUpBtn;
-    EditText emailET, passwordET;
+    EditText emailET, passwordET, confirmPasswordET;
 
     FirebaseAuth mAuth;
     DatabaseReference EvacuatorDatabaseRef;
@@ -32,62 +33,66 @@ public class EvacuatorRegLoginActivity extends AppCompatActivity {
 
     ProgressDialog loadingBar;
 
+    boolean isRegistering = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evacuator_reg_login);
 
-        evacuatorStatus = (TextView) findViewById(R.id.evacuatorStatus);
-        question = (TextView) findViewById(R.id.accauntCreate);
-        signInBtn = (Button) findViewById(R.id.signInEvacuator);
-        signUpBtn = (Button) findViewById(R.id.signUpEvacuator);
-        emailET = (EditText) findViewById(R.id.evacuatorEmail);
-        passwordET = (EditText) findViewById(R.id.evacuatorPassword);
+        evacuatorStatus = findViewById(R.id.evacuatorStatus);
+        question = findViewById(R.id.accauntCreate);
+        signInBtn = findViewById(R.id.signInEvacuator);
+        signUpBtn = findViewById(R.id.signUpEvacuator);
+        emailET = findViewById(R.id.evacuatorEmail);
+        passwordET = findViewById(R.id.evacuatorPassword);
+        confirmPasswordET = findViewById(R.id.evacuatorConfirmPassword);
 
         mAuth = FirebaseAuth.getInstance();
         loadingBar = new ProgressDialog(this);
 
         signUpBtn.setVisibility(View.INVISIBLE);
         signUpBtn.setEnabled(false);
+        confirmPasswordET.setVisibility(View.GONE);
 
         question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signInBtn.setVisibility(View.INVISIBLE);
-                question.setVisibility(View.INVISIBLE);
-                signUpBtn.setVisibility(View.VISIBLE);
-                signUpBtn.setEnabled(true);
-                evacuatorStatus.setText("Регистрация для эвакуаторщиков");
-                evacuatorStatus.setTextSize(20);
-
+                isRegistering = !isRegistering;
+                updateUI();
             }
         });
+
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String email = emailET.getText().toString();
                 String password = passwordET.getText().toString();
+                String confirmPassword = confirmPasswordET.getText().toString();
+
+                if (!password.equals(confirmPassword)) {
+                    Toast.makeText(EvacuatorRegLoginActivity.this, "Пароли не совпадают", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 RegisterEvacuator(email, password);
             }
         });
+
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String email = emailET.getText().toString();
                 String password = passwordET.getText().toString();
 
                 SignInEvacuator(email, password);
-
             }
         });
 
+        updateUI();
     }
 
-    private void SignInEvacuator(String email, String password)
-    {
+    private void SignInEvacuator(String email, String password) {
         loadingBar.setTitle("Вход эвакуаторщика");
         loadingBar.setMessage("Пожалуйста, дождитесь загрузки");
         loadingBar.show();
@@ -95,14 +100,18 @@ public class EvacuatorRegLoginActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful())
-                {
-                    Toast.makeText(EvacuatorRegLoginActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
-                    loadingBar.dismiss();
-                    Intent evacuatorIntent = new Intent(EvacuatorRegLoginActivity.this, EvacuatorMapsActivity.class);
-                    startActivity(evacuatorIntent);
-                }
-                else {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    if (user != null && user.isEmailVerified()) {
+                        Toast.makeText(EvacuatorRegLoginActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
+                        loadingBar.dismiss();
+                        Intent evacuatorIntent = new Intent(EvacuatorRegLoginActivity.this, EvacuatorMapsActivity.class);
+                        startActivity(evacuatorIntent);
+                    } else {
+                        Toast.makeText(EvacuatorRegLoginActivity.this, "Пожалуйста, подтвердите свою электронную почту", Toast.LENGTH_SHORT).show();
+                        loadingBar.dismiss();
+                    }
+                } else {
                     Toast.makeText(EvacuatorRegLoginActivity.this, "Произошла ошибка, попробуйте снова", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                 }
@@ -118,28 +127,59 @@ public class EvacuatorRegLoginActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
-                    OnlineEvacuatorID = mAuth.getCurrentUser().getUid();
-                    Log.d("Firbase","Firbase");
-                    EvacuatorDatabaseRef = FirebaseDatabase.getInstance().getReference()
-                            .child("Users").child("Evacuators").child(OnlineEvacuatorID);
+                if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    if (user != null) {
+                        OnlineEvacuatorID = user.getUid();
+                        EvacuatorDatabaseRef = FirebaseDatabase.getInstance().getReference()
+                                .child("Users").child("Evacuators").child(OnlineEvacuatorID);
 
+                        EvacuatorDatabaseRef.child("email").setValue(email);
 
-                    // Здесь вы можете добавить дополнительные данные, которые вы хотите сохранить в базе данных
-                    // Например:
-                    EvacuatorDatabaseRef.child("email").setValue(email);
+                        sendEmailVerification(user);
 
-                    Intent evacuatorIntent = new Intent(EvacuatorRegLoginActivity.this, EvacuatorMapsActivity.class);
-                    startActivity(evacuatorIntent);
-
-                    Toast.makeText(EvacuatorRegLoginActivity.this, " Регистрация прошла успешно", Toast.LENGTH_SHORT).show();
-                    loadingBar.dismiss();
-
+                        Toast.makeText(EvacuatorRegLoginActivity.this, "Регистрация прошла успешно. Пожалуйста, подтвердите свою электронную почту", Toast.LENGTH_SHORT).show();
+                        loadingBar.dismiss();
+                    }
                 } else {
                     Toast.makeText(EvacuatorRegLoginActivity.this, "Ошибка", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                 }
             }
         });
+    }
+
+    private void sendEmailVerification(FirebaseUser user) {
+        user.sendEmailVerification()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("TAG", "Email sent.");
+                        } else {
+                            Log.e("TAG", "sendEmailVerification", task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void updateUI() {
+        if (isRegistering) {
+            signUpBtn.setVisibility(View.VISIBLE);
+            signUpBtn.setEnabled(true);
+            confirmPasswordET.setVisibility(View.VISIBLE);
+            evacuatorStatus.setText("Регистрация для эвакуаторщиков");
+            evacuatorStatus.setTextSize(20);
+            signInBtn.setVisibility(View.GONE);
+            question.setVisibility(View.GONE);
+        } else {
+            signUpBtn.setVisibility(View.INVISIBLE);
+            signUpBtn.setEnabled(false);
+            confirmPasswordET.setVisibility(View.GONE);
+            evacuatorStatus.setText("Вход для эвакуаторщиков");
+            evacuatorStatus.setTextSize(23);
+            signInBtn.setVisibility(View.VISIBLE);
+            question.setVisibility(View.VISIBLE);
+        }
     }
 }
