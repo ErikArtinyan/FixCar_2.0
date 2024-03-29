@@ -28,6 +28,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -42,6 +43,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class CustomersMapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
@@ -68,6 +70,7 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
     private DatabaseReference AssignedCustomerePositionRef;
+    LatLng currentLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +105,8 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
             @Override
             public void onClick(View v) {
                 if (hasLocationPermission()) {
-                    LatLng customerPosition = getLastKnownLocation();
+                    LatLng customerPosition =currentLocation;
+                    //LatLng customerPosition = new LatLng(40.839175,44.45894666666666);
                     if (customerPosition != null) {
                         mMap.addMarker(new MarkerOptions().position(customerPosition).title("Я здесь"));
 
@@ -158,7 +162,7 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+         currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
         if (location.hasAccuracy() && location.getAccuracy() <= ACCURACY_THRESHOLD_METERS) {
             if (userCircle == null) {
                 CircleOptions circleOptions = new CircleOptions()
@@ -268,6 +272,7 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
                 if(!evacuatorFound) {
                     evacuatorFound = true;
                     evacuatorFoundID = key;
+                    Toast.makeText(CustomersMapsActivity.this, evacuatorFoundID.toString(), Toast.LENGTH_SHORT).show();
 
                     EvacuatorsRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Evacuators");
                     HashMap evacuatorMap = new HashMap();
@@ -298,19 +303,21 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
     }
 
     private void GetEvacuatorLocation() {
-        EvacuatorsLocationRef.child(evacuatorFoundID).child("l").
+
+        EvacuatorsAvaiableRef.child(evacuatorFoundID).child("l").
                 addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists())
                         {
+                            List<Object> evacuatorLocationMap = (List<Object>) dataSnapshot.getValue();
                             double locationLat = 0;
                             double locationLng = 0;
 
-                            callEvacuatorButton.setText("Эвакуатор найден");
-
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 if (snapshot.getKey().equals("0")) {
+                                    Toast.makeText(getApplicationContext(), "works", Toast.LENGTH_SHORT).show();
+
                                     locationLat = Double.parseDouble(snapshot.getValue().toString());
                                 } else if (snapshot.getKey().equals("1")) {
                                     locationLng = Double.parseDouble(snapshot.getValue().toString());
@@ -333,9 +340,13 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
                             location2.setLongitude(EvacuatorLatLng.longitude);
 
                             float Distance = location1.distanceTo(location2);
-                            callEvacuatorButton.setText("Расстояние до эвакуатора: " + String.valueOf(Distance) + " метров");
+                            String distanceText = "Расстояние до эвакуатора: " + String.valueOf(Distance) + " метров";
 
-                            evacuatorMarker = mMap.addMarker(new MarkerOptions().position(EvacuatorLatLng).title("Ваш эвакуатор здесь"));
+                            callEvacuatorButton.setText(distanceText);
+                            MarkerOptions markerOptions = new MarkerOptions().position(EvacuatorLatLng).title("Ваш эвакуатор здесь");
+                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+
+                            evacuatorMarker = mMap.addMarker(markerOptions);
                         }
                     }
 
@@ -343,4 +354,5 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
                     public void onCancelled(@NonNull DatabaseError databaseError) {}
                 });
     }
+
 }

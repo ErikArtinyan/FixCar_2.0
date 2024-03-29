@@ -52,10 +52,9 @@
 
     <Button
         android:id="@+id/customer_order_evacuator_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:layout_toRightOf="@id/customer_settings_button"
         android:backgroundTint="@color/light_gray"
         android:text="Вызвать эвакуатор"
         android:textColor="@color/white"
