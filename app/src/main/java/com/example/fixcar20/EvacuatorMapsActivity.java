@@ -24,9 +24,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,13 +48,15 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
     private GoogleMap mMap;
     private Circle userCircle;
     private LocationManager locationManager;
+    Marker PickUpMarker;
 
     private Button LogoutEvacuatorButton, SettingsEvacuatorButton;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-    private Boolean currentLogoutEvacuatorStatus;
+    private Boolean currentLogoutEvacuatorStatus = false;
     private DatabaseReference assignedCustomereRef, AssignedCustomerePositionRef,locationLatRef,locationLong;
     private String evacuatorID, customereID = "";
+    private ValueEventListener AssignedCustomerePositionListener;
 
 
 
@@ -117,7 +121,6 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
         ///////////Chi haskanm tvyal avelacela te che
         ///////
         /////
-        ///
 
         assignedCustomereRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -138,6 +141,19 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
 
 
                 }
+                else {
+                    customereID = "";
+
+                    if(PickUpMarker != null)
+                    {
+                        PickUpMarker.remove();
+                    }
+
+                    if(AssignedCustomerePositionListener != null)
+                    {
+                        AssignedCustomerePositionRef.removeEventListener(AssignedCustomerePositionListener);
+                    }
+                }
             }
 
             @Override
@@ -152,7 +168,7 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
         AssignedCustomerePositionRef = FirebaseDatabase.getInstance().getReference().child("CustomersE Requests")
                 .child(customereID).child("l");
 
-        AssignedCustomerePositionRef.addValueEventListener(new ValueEventListener() {
+        AssignedCustomerePositionListener = AssignedCustomerePositionRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
@@ -166,7 +182,7 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
 
                         if (locationLat != null && locationLog != null) {
                             LatLng EvacuatorLatLng = new LatLng(locationLat, locationLog);
-                            mMap.addMarker(new MarkerOptions().position(EvacuatorLatLng).title("Клиент тут"));
+                            mMap.addMarker(new MarkerOptions().position(EvacuatorLatLng).title("Клиент тут")); //.icon(BitmapDescriptorFactory.fromResource(R.drawable.baseline_car_crash_24)));
                         }
                     }
 

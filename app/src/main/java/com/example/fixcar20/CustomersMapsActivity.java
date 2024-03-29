@@ -50,9 +50,10 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
     private static final int ACCURACY_THRESHOLD_METERS = 20;
     private static final float ZOOM_LEVEL = 17.0f;
     private GoogleMap mMap;
+    GeoQuery geoQuery;
     private Circle userCircle;
     private LocationManager locationManager;
-    Marker evacuatorMarker;
+    Marker evacuatorMarker, PickUpMarker;
     private Button customerLogoutButton;
     private Button callEvacuatorButton;
     private String customerID;
@@ -61,12 +62,14 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
     private LatLng CustomerePosition;
     private int radius = 1;
     private Boolean evacuatorFound = false;
+    private Boolean  requesteType = false;
     private String evacuatorFoundID;
 
     private DatabaseReference CustomerDatabaseRef;
     private DatabaseReference EvacuatorsAvaiableRef;
     private DatabaseReference EvacuatorsRef;
     private DatabaseReference EvacuatorsLocationRef;
+    private ValueEventListener EvacuatorLocationRefListener;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
     private DatabaseReference AssignedCustomerePositionRef;
@@ -87,7 +90,7 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
         customerID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         CustomerDatabaseRef = FirebaseDatabase.getInstance().getReference().child("CustomersE Requests");
         EvacuatorsAvaiableRef = FirebaseDatabase.getInstance().getReference().child("Evacuator Avaiable");
-        EvacuatorsLocationRef = FirebaseDatabase.getInstance().getReference().child("Evacuator Working");
+     //   EvacuatorsLocationRef = FirebaseDatabase.getInstance().getReference().child("Evacuator Working");
 
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch mapTypeSwitch = findViewById(R.id.map_type_switch);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -102,9 +105,72 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
         });
 
         callEvacuatorButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 if (hasLocationPermission()) {
+
+                    if(requesteType)
+                    {
+                        requesteType = false;
+                       // geoQuery.removeAllListeners();
+
+
+                        EvacuatorsAvaiableRef.removeEventListener(EvacuatorLocationRefListener);
+
+                        if(evacuatorFound != null)
+                        {
+                          //  EvacuatorsRef = FirebaseDatabase.getInstance().getReference()
+                          //          .child("Users").child("Evacuators").child(evacuatorFoundID).child("CustomereRideID");
+                            EvacuatorsRef = FirebaseDatabase.getInstance().getReference()
+                                      .child("Users").child("Evacuators").child(customerID);
+                            EvacuatorsRef.removeValue();
+                            evacuatorFoundID = null;
+                        }
+
+                        evacuatorFound = false;
+                        radius = 1;
+
+                        GeoFire geoFire = new GeoFire(CustomerDatabaseRef);
+                        geoFire.removeLocation(customerID);
+
+                        if(PickUpMarker != null)
+                        {
+                            PickUpMarker.remove();
+                        }
+                        if(evacuatorMarker != null)
+                        {
+                            evacuatorMarker.remove();
+                        }
+
+                        callEvacuatorButton.setText("Вызвать эвакуатор");
+
+                    }
+                    else
+                    {
+                        requesteType = true;
+
+
+                        GeoFire geoFire = new GeoFire(CustomerDatabaseRef);
+
+                        LatLng customerPosition =currentLocation;
+                        //LatLng customerPosition = new LatLng(40.839175,44.45894666666666);
+                        if (customerPosition != null) {
+                            mMap.addMarker(new MarkerOptions().position(customerPosition).title("Я здесь"));
+
+                            // Установить значение CustomerePosition
+                            CustomerePosition = customerPosition;
+
+                            callEvacuatorButton.setText("Поиск эвакуатора...");
+                            getNearbyEvacuators();
+
+                         //   GeoFire geoFire = new GeoFire(CustomerDatabaseRef);
+                            geoFire.setLocation(customerID, new GeoLocation(customerPosition.latitude, customerPosition.longitude));
+                        } else {
+                            Toast.makeText(CustomersMapsActivity.this, "Местоположение не найдено", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
                     LatLng customerPosition =currentLocation;
                     //LatLng customerPosition = new LatLng(40.839175,44.45894666666666);
                     if (customerPosition != null) {
@@ -269,7 +335,7 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
-                if(!evacuatorFound) {
+                if(!evacuatorFound && requesteType) {
                     evacuatorFound = true;
                     evacuatorFoundID = key;
                     Toast.makeText(CustomersMapsActivity.this, evacuatorFoundID.toString(), Toast.LENGTH_SHORT).show();
@@ -304,11 +370,11 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
 
     private void GetEvacuatorLocation() {
 
-        EvacuatorsAvaiableRef.child(evacuatorFoundID).child("l").
+        EvacuatorLocationRefListener = EvacuatorsAvaiableRef.child(evacuatorFoundID).child("l").
                 addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists())
+                        if(dataSnapshot.exists() && requesteType)
                         {
                             List<Object> evacuatorLocationMap = (List<Object>) dataSnapshot.getValue();
                             double locationLat = 0;
@@ -340,9 +406,16 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
                             location2.setLongitude(EvacuatorLatLng.longitude);
 
                             float Distance = location1.distanceTo(location2);
-                            String distanceText = "Расстояние до эвакуатора: " + String.valueOf(Distance) + " метров";
+                            if (Distance > 100)
+                            {
+                                String distanceText = "Ваш эвакуатор подезжает";
+                                callEvacuatorButton.setText(distanceText);
+                            }
+                            else{
+                                String distanceText = "Расстояние до эвакуатора: " + String.valueOf(Distance);
+                                callEvacuatorButton.setText(distanceText);
+                            }
 
-                            callEvacuatorButton.setText(distanceText);
                             MarkerOptions markerOptions = new MarkerOptions().position(EvacuatorLatLng).title("Ваш эвакуатор здесь");
                             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 
