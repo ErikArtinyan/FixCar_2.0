@@ -19,10 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/statusCustomer"
-        android:textStyle="bold"
+        android:textColor="@color/white"
+
         android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="abc@gmail.com"
+        android:textColorHint="@color/white"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -30,10 +32,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/customerEmail"
-        android:textStyle="bold"
+        android:textColor="@color/white"
+
         android:hint="password"
         android:layout_marginTop="30dp"
         android:ems="10"
+        android:textColorHint="@color/white"
         android:inputType="textPassword" />
 
     <EditText
@@ -41,10 +45,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/customerPassword"
-        android:textStyle="bold"
+        android:textColor="@color/white"
+
         android:hint="confirm password"
         android:layout_marginTop="30dp"
         android:ems="10"
+        android:textColorHint="@color/white"
         android:inputType="textPassword" />
 
     <Button
@@ -56,6 +62,7 @@
         android:textSize="20dp"
         android:textStyle="italic"
         android:text="Войти"
+        android:backgroundTint="@color/blue"
         android:layout_below="@id/customerPassword"
         android:visibility="visible" />
 
@@ -70,6 +77,7 @@
         android:textSize="20dp"
         android:textStyle="italic"
         android:text="Регистрация"
+        android:backgroundTint="@color/blue"
         android:layout_below="@id/customerConfirmPassword" />
 
     <TextView
@@ -79,7 +87,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="200dp"
         android:textSize="23dp"
+        android:textColor="@color/white"
         android:textStyle="bold"
+
         android:text="Вход для клиентов" />
 
     <TextView
@@ -91,6 +101,7 @@
         android:textStyle="italic"
         android:layout_marginTop="5dp"
         android:text="Нет аккаунта?"
+        android:textColor="@color/white"
         android:visibility="gone" />
 
 </RelativeLayout>
