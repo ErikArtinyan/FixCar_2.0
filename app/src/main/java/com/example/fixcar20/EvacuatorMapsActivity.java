@@ -7,10 +7,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -49,7 +51,7 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private Boolean currentLogoutEvacuatorStatus;
-    private DatabaseReference assignedCustomereRef, AssignedCustomerePositionRef;
+    private DatabaseReference assignedCustomereRef, AssignedCustomerePositionRef,locationLatRef,locationLong;
     private String evacuatorID, customereID = "";
 
 
@@ -110,16 +112,31 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
 
     private void getAssignedCustomereRequest() {
         assignedCustomereRef = FirebaseDatabase.getInstance().getReference()
-                .child("Users").child("Evacuators").child(evacuatorID).child("CustomereRideID");
+                .child("Users").child("Evacuators");
+
+        ///////////Chi haskanm tvyal avelacela te che
+        ///////
+        /////
+        ///
 
         assignedCustomereRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
                 {
-                    customereID = dataSnapshot.getValue().toString();
 
-                    getAssignedCustomerePosition();
+                    Log.e("Data changed111","data changed");
+                    for (DataSnapshot childrenSnapshot:dataSnapshot.getChildren()){
+                        customereID =  childrenSnapshot.child("CustomereRideID").getValue().toString();
+                        getAssignedCustomerePosition();
+                        Toast.makeText(EvacuatorMapsActivity.this, customereID, Toast.LENGTH_SHORT).show();
+
+                    }
+
+
+
+
+
                 }
             }
 
@@ -132,7 +149,7 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
     }
 
     private void getAssignedCustomerePosition() {
-        AssignedCustomerePositionRef = FirebaseDatabase.getInstance().getReference().child("Customere Requests")
+        AssignedCustomerePositionRef = FirebaseDatabase.getInstance().getReference().child("CustomersE Requests")
                 .child(customereID).child("l");
 
         AssignedCustomerePositionRef.addValueEventListener(new ValueEventListener() {
@@ -140,21 +157,20 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
                 {
-                    List<Object> customerePositionMap = (List<Object>) dataSnapshot.getValue();
-                    double locationLat = 0;
-                    double locationLng = 0;
+                    Log.e("Data changed111","data changed2");
+                   // List<Object> customerePositionMap = (List<Object>) dataSnapshot.getValue();
+
+                    if (dataSnapshot.exists()) {
+                        Double locationLat = dataSnapshot.child("0").getValue(Double.class);
+                        Double locationLog = dataSnapshot.child("1").getValue(Double.class);
+
+                        if (locationLat != null && locationLog != null) {
+                            LatLng EvacuatorLatLng = new LatLng(locationLat, locationLog);
+                            mMap.addMarker(new MarkerOptions().position(EvacuatorLatLng).title("Клиент тут"));
+                        }
+                    }
 
 
-                    if(customerePositionMap.get(0) != null)
-                    {
-                        locationLat = Double.parseDouble(customerePositionMap.get(0).toString());
-                    }
-                    if(customerePositionMap.get(1) != null)
-                    {
-                        locationLng = Double.parseDouble(customerePositionMap.get(1).toString());
-                    }
-                    LatLng EvacuatorLatLng = new LatLng(locationLat, locationLng);
-                    mMap.addMarker(new MarkerOptions().position(EvacuatorLatLng).title("Клиент тут"));
                 }
             }
 

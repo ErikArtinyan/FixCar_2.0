@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -13,7 +14,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -33,7 +33,6 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.example.fixcar20.databinding.ActivityCustomersMapsBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -43,7 +42,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class CustomersMapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener {
 
@@ -53,7 +51,6 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
     private Circle userCircle;
     private LocationManager locationManager;
     Marker evacuatorMarker;
-    private ActivityCustomersMapsBinding binding;
     private Button customerLogoutButton;
     private Button callEvacuatorButton;
     private String customerID;
@@ -70,25 +67,24 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
     private DatabaseReference EvacuatorsLocationRef;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
-    private LatLng TODO;
+    private DatabaseReference AssignedCustomerePositionRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //EvacuatorsLocationRef = FirebaseDatabase.getInstance().getReference().child("Evacuator Avaiable");
-        binding = ActivityCustomersMapsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_customers_maps);
 
         customerLogoutButton = findViewById(R.id.customer_logout_button);
         callEvacuatorButton = findViewById(R.id.customer_order_evacuator_button);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         customerID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         CustomerDatabaseRef = FirebaseDatabase.getInstance().getReference().child("CustomersE Requests");
         EvacuatorsAvaiableRef = FirebaseDatabase.getInstance().getReference().child("Evacuator Avaiable");
-       EvacuatorsLocationRef = FirebaseDatabase.getInstance().getReference().child("Evacuator Working");
+        EvacuatorsLocationRef = FirebaseDatabase.getInstance().getReference().child("Evacuator Working");
 
         @SuppressLint("UseSwitchCompatOrMaterialCode") Switch mapTypeSwitch = findViewById(R.id.map_type_switch);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -103,7 +99,6 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
         });
 
         callEvacuatorButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 if (hasLocationPermission()) {
@@ -111,10 +106,12 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
                     if (customerPosition != null) {
                         mMap.addMarker(new MarkerOptions().position(customerPosition).title("Я здесь"));
 
+                        // Установить значение CustomerePosition
+                        CustomerePosition = customerPosition;
+
                         callEvacuatorButton.setText("Поиск эвакуатора...");
                         getNearbyEvacuators();
 
-                        //115, 79
                         GeoFire geoFire = new GeoFire(CustomerDatabaseRef);
                         geoFire.setLocation(customerID, new GeoLocation(customerPosition.latitude, customerPosition.longitude));
                     } else {
@@ -131,16 +128,12 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                    Log.e("normal","map Tipe changed");
                 } else {
                     mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-                    Log.e("Hibrid","map Tipe changed");
                 }
             }
         });
     }
-
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -148,7 +141,13 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         if (hasLocationPermission()) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
                 return;
             }
             mMap.setMyLocationEnabled(true);
@@ -171,8 +170,15 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
                 userCircle = mMap.addCircle(circleOptions);
             } else {
                 userCircle.remove();
+
             }
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, ZOOM_LEVEL));
+            AssignedCustomerePositionRef = FirebaseDatabase.getInstance().getReference().child("CustomersE Requests")
+                    .child(customerID).child("l");
+            AssignedCustomerePositionRef.child("0").setValue(location.getLatitude());
+            AssignedCustomerePositionRef.child("1").setValue(location.getLongitude());
+
+
         }
     }
 
@@ -196,7 +202,13 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (locationManager != null) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
                 return;
             }
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
@@ -216,10 +228,8 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, start location updates
                 startLocationUpdates();
             } else {
-                // Permission denied, show a message or handle it accordingly
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         }
@@ -228,10 +238,13 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
     private LatLng getLastKnownLocation() {
         if (locationManager != null) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                return TODO;
+                // Нет разрешения на местоположение
+                return null;
             }
+
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
             if (lastKnownLocation != null) {
                 return new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
             }
@@ -252,42 +265,35 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
-                if(!evacuatorFound)
-                {
+                if(!evacuatorFound) {
                     evacuatorFound = true;
                     evacuatorFoundID = key;
 
-                    EvacuatorsRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Evacuators").child(evacuatorFoundID);
+                    EvacuatorsRef = FirebaseDatabase.getInstance().getReference().child("Users").child("Evacuators");
                     HashMap evacuatorMap = new HashMap();
                     evacuatorMap.put("CustomereRideID", customerID);
-                    EvacuatorsRef.updateChildren(evacuatorMap);
+                    EvacuatorsRef.child(customerID).setValue(evacuatorMap);
 
                     GetEvacuatorLocation();
                 }
             }
 
             @Override
-            public void onKeyExited(String key) {
-
-            }
+            public void onKeyExited(String key) {}
 
             @Override
-            public void onKeyMoved(String key, GeoLocation location) {
-
-            }
+            public void onKeyMoved(String key, GeoLocation location) {}
 
             @Override
             public void onGeoQueryReady() {
-                if(!evacuatorFound){
+                if(!evacuatorFound) {
                     radius = radius + 1;
-                    getNearbyEvacuators();
+                    geoQuery.setRadius(radius);
                 }
             }
 
             @Override
-            public void onGeoQueryError(DatabaseError error) {
-
-            }
+            public void onGeoQueryError(DatabaseError error) {}
         });
     }
 
@@ -298,20 +304,19 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists())
                         {
-                            List<Object> evacuatorLocationMap = (List<Object>) dataSnapshot.getValue();
                             double locationLat = 0;
                             double locationLng = 0;
 
-                            callEvacuatorButton.setText("Эакуатор найден");
+                            callEvacuatorButton.setText("Эвакуатор найден");
 
-                            if(evacuatorLocationMap.get(0) != null)
-                            {
-                                locationLat = Double.parseDouble(evacuatorLocationMap.get(0).toString());
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                if (snapshot.getKey().equals("0")) {
+                                    locationLat = Double.parseDouble(snapshot.getValue().toString());
+                                } else if (snapshot.getKey().equals("1")) {
+                                    locationLng = Double.parseDouble(snapshot.getValue().toString());
+                                }
                             }
-                            if(evacuatorLocationMap.get(1) != null)
-                            {
-                                locationLng = Double.parseDouble(evacuatorLocationMap.get(1).toString());
-                            }
+
                             LatLng EvacuatorLatLng = new LatLng(locationLat, locationLng);
 
                             if(evacuatorMarker != null)
@@ -328,16 +333,14 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
                             location2.setLongitude(EvacuatorLatLng.longitude);
 
                             float Distance = location1.distanceTo(location2);
-                            callEvacuatorButton.setText("Расстояние до эвакуатора" + String.valueOf(Distance));
+                            callEvacuatorButton.setText("Расстояние до эвакуатора: " + String.valueOf(Distance) + " метров");
 
-                            evacuatorMarker = mMap.addMarker(new MarkerOptions().position(EvacuatorLatLng).title("Ваш эвакуатор тут"));
+                            evacuatorMarker = mMap.addMarker(new MarkerOptions().position(EvacuatorLatLng).title("Ваш эвакуатор здесь"));
                         }
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
+                    public void onCancelled(@NonNull DatabaseError databaseError) {}
                 });
     }
 }
