@@ -172,7 +172,7 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
                     }
 
                     LatLng customerPosition =currentLocation;
-                    //LatLng customerPosition = new LatLng(40.839175,44.45894666666666);
+                    //LatLng customerPosition = new LatLng(40.838611666666665,44.45795499999999);
                     if (customerPosition != null) {
                         mMap.addMarker(new MarkerOptions().position(customerPosition).title("Я здесь"));
 

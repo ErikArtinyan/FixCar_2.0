@@ -239,8 +239,11 @@ public class EvacuatorMapsActivity extends FragmentActivity implements OnMapRead
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, ZOOM_LEVEL));
 
                 String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                DatabaseReference EvacuatorAvalablityRef = FirebaseDatabase.getInstance().getReference().child("Evacuator Avaiable");
+                DatabaseReference EvacuatorAvalablityRef = FirebaseDatabase.getInstance().getReference().child("Evacuator Avaiable").child(evacuatorID);
                 GeoFire geoFireAvailablity = new GeoFire(EvacuatorAvalablityRef);
+                EvacuatorAvalablityRef.child("0").setValue(currentLocation.latitude);
+                EvacuatorAvalablityRef.child("1").setValue(currentLocation.longitude);
+
 
 
                 DatabaseReference EvacuatorWorkingRef = FirebaseDatabase.getInstance().getReference().child("Evacuator Working");
