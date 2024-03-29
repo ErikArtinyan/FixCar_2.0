@@ -186,6 +186,7 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
                         geoFire.setLocation(customerID, new GeoLocation(customerPosition.latitude, customerPosition.longitude));
                     } else {
                         Toast.makeText(CustomersMapsActivity.this, "Местоположение не найдено", Toast.LENGTH_SHORT).show();
+                        requesteType = false;
                     }
                 } else {
                     requestLocationPermission();
