@@ -67,7 +67,7 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
                     accauntCreateCustomer.setVisibility(View.INVISIBLE);
                     signUpBtn.setVisibility(View.VISIBLE);
                     signUpBtn.setEnabled(true);
-                    customerStatus.setText("Регистрация для клиентов");
+                    customerStatus.setText("Регистрация");
                     customerStatus.setTextSize(20);
                     confirmPasswordET.setVisibility(View.VISIBLE);
                     isRegistering = true;
@@ -115,7 +115,7 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
                     if (user != null && user.isEmailVerified()) {
                         Toast.makeText(CustomerRegLoginActivity.this, "Успешный вход", Toast.LENGTH_SHORT).show();
                         loadingBar.dismiss();
-                        Intent customerIntent = new Intent(CustomerRegLoginActivity.this, CustomersMapsActivity.class);
+                        Intent customerIntent = new Intent(CustomerRegLoginActivity.this, Main_Menu.class);
                         startActivity(customerIntent);
                     } else {
                         Toast.makeText(CustomerRegLoginActivity.this, "Ваша учетная запись не подтверждена или прошлая попытка регистрации не завершилась", Toast.LENGTH_SHORT).show();
@@ -130,7 +130,7 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
     }
 
     private void RegisterCustomer(String email, String password) {
-        loadingBar.setTitle("Регистрация клиента");
+        loadingBar.setTitle("Регистрация ");
         loadingBar.setMessage("Пожалуйста, дождитесь загрузки");
         loadingBar.show();
 

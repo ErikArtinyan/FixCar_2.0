@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.example.fixcar20.databinding.ActivityMain2Binding;
 import com.google.android.material.snackbar.Snackbar;
@@ -20,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fixcar20.databinding.ActivityMain2Binding;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +51,14 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     finally {
-                        Intent welcomeIntent = new Intent(MainActivity.this, WelcomeActivity.class);
+                      // if(FirebaseAuth.getInstance().getUid() != null){
+                      //     Toast.makeText(MainActivity.this, "aaa  ", Toast.LENGTH_SHORT).show();
+                      //     Intent welcomeIntent1 = new Intent(MainActivity.this, WelcomeActivity.class);
+                      //     startActivity(welcomeIntent1);
+
+
+                      // }
+                        Intent welcomeIntent = new Intent(MainActivity.this, CustomerRegLoginActivity.class);
                         startActivity(welcomeIntent);
                     }
                 }

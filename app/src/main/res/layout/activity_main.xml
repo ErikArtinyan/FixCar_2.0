@@ -13,9 +13,9 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:src="@drawable/logo"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:background="@drawable/logo_sharika"
             app:tint="@color/white">
 
         </ImageView>
@@ -27,7 +27,7 @@
             android:fontFamily="monospace"
             android:text="@string/app_name"
             android:textColor="@color/white"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:textStyle="bold">
 
         </TextView>
