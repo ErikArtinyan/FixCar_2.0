@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Mode_Selection"
+    android:background="@color/basic_color">
+
+    <TextView
+        android:id="@+id/select_mode_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:text="Выберите режим"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+    </TextView>
+
+    <Button
+        android:id="@+id/capitals"
+        android:text="Столицы"
+        android:textStyle="bold"
+        android:backgroundTint="@color/blue"
+        android:textSize="23dp"
+        android:layout_width="270dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/select_mode_textView"
+        android:onClick="next"
+        >
+    </Button>
+
+    <Button
+        android:id="@+id/flags"
+        android:text="Флаги"
+        android:textStyle="bold"
+        android:backgroundTint="@color/blue"
+        android:textSize="23dp"
+        android:layout_width="270dp"
+        android:layout_height="55dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/capitals"
+
+        >
+    </Button>
+
+
+
+
+</RelativeLayout>

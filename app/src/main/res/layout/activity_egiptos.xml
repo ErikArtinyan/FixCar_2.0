@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#5894D3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Mayraqaxaq.Egiptos">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="192dp"
+        android:layout_height="186dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="132dp"
+        app:srcCompat="@drawable/castlee" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Египет"
+        android:textStyle="bold"
+        android:textSize="35dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/imageView2"
+        android:layout_marginTop="200dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginEnd="8dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/blue"
+                android:textStyle="bold"
+                android:textSize="24dp"
+                android:text="Стамбул"
+                android:onClick="sxal"
+                android:layout_marginBottom="8dp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/blue"
+                android:textStyle="bold"
+                android:textSize="24dp"
+                android:text="Дамаск"
+                android:onClick="sxal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="8dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/blue"
+                android:textStyle="bold"
+                android:textSize="24dp"
+                android:text="Дубай"
+                android:onClick="sxal"
+                android:layout_marginBottom="8dp"/>
+
+            <Button
+                android:id="@+id/Kair"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/blue"
+                android:text="Каир"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                android:onClick="next"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
+
