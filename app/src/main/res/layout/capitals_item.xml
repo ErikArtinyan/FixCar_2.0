@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#5894D3"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.Mayraqaxaq.Armenia">
+    android:layout_height="match_parent">
 
 
     <ImageView
@@ -16,12 +15,13 @@
         android:layout_marginTop="132dp"
         app:srcCompat="@drawable/castlee"
 
-     />
+        />
 
     <TextView
+        android:id="@+id/countryesName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Армения"
+        android:text="Название страны"
         android:textStyle="bold"
         android:textSize="35dp"
         android:layout_centerHorizontal="true"
@@ -33,7 +33,7 @@
         android:orientation="horizontal"
         android:layout_below="@id/imageView2"
         android:layout_marginTop="70dp"
-       >
+        >
 
         <LinearLayout
             android:layout_width="0dp"
@@ -43,25 +43,23 @@
             android:layout_marginEnd="8dp">
 
             <Button
-                android:id="@+id/astana"
+                android:id="@+id/answer1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:backgroundTint="@color/blue"
                 android:textStyle="bold"
                 android:textSize="24dp"
-                android:text="Астана"
-                android:onClick="sxal"
+                android:text="Вариант 1"
                 android:layout_marginBottom="8dp"/>
 
             <Button
-                android:id="@+id/Yerevan"
+                android:id="@+id/answer3"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:backgroundTint="@color/blue"
                 android:textStyle="bold"
                 android:textSize="24dp"
-                android:text="Ереван"
-                android:onClick="next" />
+                android:text="Вариант 3" />
 
         </LinearLayout>
 
@@ -73,25 +71,24 @@
             android:layout_marginStart="8dp">
 
             <Button
-                android:id="@+id/Tbilisi"
+                android:id="@+id/answer2"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:backgroundTint="@color/blue"
                 android:textStyle="bold"
                 android:textSize="24dp"
-                android:text="Тбилиси"
-                android:onClick="sxal"
+                android:text="Вариант 2"
+
                 android:layout_marginBottom="8dp"/>
 
             <Button
-                android:id="@+id/glendel"
+                android:id="@+id/answer4"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:backgroundTint="@color/blue"
-                android:text="Глендел"
+                android:text="Вариант 4"
                 android:textSize="24dp"
-                android:textStyle="bold"
-                android:onClick="sxal"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
     </LinearLayout>

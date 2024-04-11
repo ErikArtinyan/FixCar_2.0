@@ -75,13 +75,14 @@ public class CustomersMapsActivity extends FragmentActivity implements OnMapRead
     private DatabaseReference AssignedCustomerePositionRef;
     LatLng currentLocation;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_customers_maps);
 
-        customerLogoutButton = findViewById(R.id.customer_logout_button);
+        customerLogoutButton = findViewById(R.id.customer_logout_btn);
         callEvacuatorButton = findViewById(R.id.customer_order_evacuator_button);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 

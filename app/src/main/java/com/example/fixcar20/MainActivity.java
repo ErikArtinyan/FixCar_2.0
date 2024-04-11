@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
@@ -51,15 +52,20 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     finally {
-                      // if(FirebaseAuth.getInstance().getUid() != null){
-                      //     Toast.makeText(MainActivity.this, "aaa  ", Toast.LENGTH_SHORT).show();
-                      //     Intent welcomeIntent1 = new Intent(MainActivity.this, WelcomeActivity.class);
-                      //     startActivity(welcomeIntent1);
+                       if(FirebaseAuth.getInstance().getUid() != null){
+
+                           Intent welcomeIntent1 = new Intent(MainActivity.this, Main_Menu.class);
+                           startActivity(welcomeIntent1);
+                           finish();
 
 
-                      // }
-                        Intent welcomeIntent = new Intent(MainActivity.this, CustomerRegLoginActivity.class);
-                        startActivity(welcomeIntent);
+                       }
+                       else {
+
+
+                           Intent welcomeIntent = new Intent(MainActivity.this, CustomerRegLoginActivity.class);
+                           startActivity(welcomeIntent);
+                       }
                     }
                 }
             }
