@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#5894D3"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="132dp"
-        app:srcCompat="@drawable/castlee"
-
-        />
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/countryesName"
@@ -24,51 +14,54 @@
         android:text="Название страны"
         android:textStyle="bold"
         android:textSize="35dp"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"/>
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        app:srcCompat="@drawable/castlee"
+
+        />
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/imageView2"
+        android:layout_height="0dp"
+        android:orientation="vertical"
         android:layout_marginTop="70dp"
+        android:layout_weight="1"
         >
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginEnd="8dp">
 
-            <Button
-                android:id="@+id/answer1"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:backgroundTint="@color/blue"
-                android:textStyle="bold"
-                android:textSize="24dp"
-                android:text="Вариант 1"
-                android:layout_marginBottom="8dp"/>
+        <Button
+            android:id="@+id/answer1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="2.5dp"
+            android:backgroundTint="@color/blue"
+            android:text="Вариант 1"
+            android:textSize="24dp"
+            android:textStyle="bold" />
 
-            <Button
+        <Button
                 android:id="@+id/answer3"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:backgroundTint="@color/blue"
                 android:textStyle="bold"
                 android:textSize="24dp"
-                android:text="Вариант 3" />
+                android:text="Вариант 3"
+                android:layout_margin="2.5dp"/>
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="8dp">
+
 
             <Button
                 android:id="@+id/answer2"
@@ -78,7 +71,7 @@
                 android:textStyle="bold"
                 android:textSize="24dp"
                 android:text="Вариант 2"
-
+                android:layout_margin="2.5dp"
                 android:layout_marginBottom="8dp"/>
 
             <Button
@@ -88,9 +81,9 @@
                 android:backgroundTint="@color/blue"
                 android:text="Вариант 4"
                 android:textSize="24dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_margin="2.5dp"/>
 
         </LinearLayout>
     </LinearLayout>
 
-</RelativeLayout>

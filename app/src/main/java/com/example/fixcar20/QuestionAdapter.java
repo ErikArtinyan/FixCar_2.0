@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -60,6 +62,16 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                 list.get(position).getAnswer2(),
                 list.get(position).getAnswer3(),
                 list.get(position).getAnswer4());
+
+
+        Random random = new Random();
+        int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+
+        Glide.with(context.getApplicationContext())
+                .load(list.get(position).getImageURL())
+                .placeholder(new ColorDrawable(color))
+                .timeout(7000)
+                .into(holder.countryImage);
 
 
     }
