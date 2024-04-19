@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-
+    implementation("com.google.firebase:firebase-firestore:24.11.1")
     implementation ("com.github.Spikeysanju:MotionToast:1.4")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
@@ -51,6 +51,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.navigation:navigation-fragment:2.7.6")
     implementation("androidx.navigation:navigation-ui:2.7.6")
+    implementation("com.google.firebase:firebase-firestore:24.11.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

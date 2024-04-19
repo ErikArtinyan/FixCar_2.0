@@ -9,9 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +22,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import www.sanju.motiontoast.MotionToast;
+import www.sanju.motiontoast.MotionToastStyle;
 
 public class CustomerRegLoginActivity extends AppCompatActivity {
 
@@ -34,6 +39,7 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
     ProgressDialog loadingBar;
 
     boolean isRegistering = false;
+    UserModel userModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,7 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
         emailET = findViewById(R.id.customerEmail);
         passwordET = findViewById(R.id.customerPassword);
         confirmPasswordET = findViewById(R.id.customerConfirmPassword);
+        userModel = new UserModel();
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -138,6 +145,7 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+
                     FirebaseUser user = mAuth.getCurrentUser();
                     if (user != null) {
                         OnlineCustomerID = user.getUid();
@@ -145,32 +153,46 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
                                 .child("Users").child("Customers").child(OnlineCustomerID);
                         CustomerDatabaseRef.setValue(true);
 
-                        // Отправляем подтверждение на электронную почту
+                        userModel.setBal(0);
+                        userModel.setEmil(email);
+                        userModel.setPassword(password);
+                        userModel.setName("null");
                         sendEmailVerification(user);
-
                         Toast.makeText(CustomerRegLoginActivity.this, "На вашу электронную почту отправлено подтверждение", Toast.LENGTH_SHORT).show();
                         loadingBar.dismiss();
+
+                        FirebaseFirestore.getInstance().collection("users").document(mAuth.getCurrentUser().getUid()).set(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(CustomerRegLoginActivity.this, "1", Toast.LENGTH_SHORT).show();
+
+                                }
+
+
+                            }
+                        });
+                    } else {
+                        Toast.makeText(CustomerRegLoginActivity.this, "Ошибка", Toast.LENGTH_SHORT).show();
+                        loadingBar.dismiss();
                     }
-                } else {
-                    Toast.makeText(CustomerRegLoginActivity.this, "Ошибка", Toast.LENGTH_SHORT).show();
-                    loadingBar.dismiss();
                 }
             }
-        });
-    }
 
-    private void sendEmailVerification(FirebaseUser user) {
-        user.sendEmailVerification()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("TAG", "Email sent.");
-                        } else {
-                            Log.e("TAG", "sendEmailVerification", task.getException());
-                        }
-
-                    }
-                });
+            private void sendEmailVerification(FirebaseUser user) {
+                user.sendEmailVerification()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("TAG", "Email sent.");
+                                } else {
+                                    Log.e("TAG", "sendEmailVerification", task.getException());
+                                }
+                            }
+                        });
+            }
+        }); // <-- Closing parenthesis for addOnCompleteListener
     }
 }

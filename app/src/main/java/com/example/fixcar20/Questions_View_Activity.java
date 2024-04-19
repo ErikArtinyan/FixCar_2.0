@@ -42,6 +42,9 @@ public class Questions_View_Activity extends AppCompatActivity {
             @Override
             public void onanswer1(int position, String answer1, String answer) {
                 if(answer1.equals(answer)){
+
+                    UserModel.baler(context);
+
                     MotionToast.Companion.createColorToast((Activity) context,
                             "Ответ правелен!",
                             "Молодец!",
@@ -71,6 +74,9 @@ public class Questions_View_Activity extends AppCompatActivity {
             @Override
             public void onanswer2(int position, String answer2, String answer) {
                 if(answer2.equals(answer)){
+
+                    UserModel.baler(context);
+
                     MotionToast.Companion.createColorToast((Activity) context,
                             "Ответ правелен!",
                             "Молодец!",
@@ -100,6 +106,10 @@ public class Questions_View_Activity extends AppCompatActivity {
             @Override
             public void onanswer3(int position, String answer3, String answer) {
                 if(answer3.equals(answer)){
+
+
+                    UserModel.baler(context);
+
                     MotionToast.Companion.createColorToast((Activity) context,
                             "Ответ правелен!",
                             "Молодец!",
@@ -128,6 +138,8 @@ public class Questions_View_Activity extends AppCompatActivity {
             @Override
             public void onanswer4(int position, String answer4, String answer) {
                 if(answer4.equals(answer)){
+                    UserModel.baler(context);
+
                     MotionToast.Companion.createColorToast((Activity) context,
                             "Ответ правелен!",
                             "Молодец!",
@@ -135,6 +147,8 @@ public class Questions_View_Activity extends AppCompatActivity {
                             MotionToast.GRAVITY_BOTTOM,
                             MotionToast.LONG_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
+
+
 
                     list.remove(position);
                     questionAdapter.notifyDataSetChanged();
