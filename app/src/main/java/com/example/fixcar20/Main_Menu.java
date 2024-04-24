@@ -78,9 +78,16 @@ public class Main_Menu extends AppCompatActivity {
     }
 
     public void next(View view) {
+
         Intent intent = new Intent(Main_Menu.this,Mode_Selection.class);
         startActivity(intent);
 
     }
 
+    public void Leader(View view) {
+
+        Intent intent = new Intent(Main_Menu.this,Lideri.class);
+        startActivity(intent);
+
+    }
 }

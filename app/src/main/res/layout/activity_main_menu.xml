@@ -43,6 +43,19 @@
     </Button>
 
     <Button
+        android:id="@+id/Lider_btn"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:onClick="Leader"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/blue"
+        android:layout_below="@+id/settings_btn"
+        android:text="Лидеры">
+    </Button>
+
+    <Button
         android:id="@+id/logout_btn"
         android:layout_width="250dp"
         android:layout_height="60dp"
@@ -50,7 +63,7 @@
         android:textSize="20dp"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/blue"
-        android:layout_below="@+id/settings_btn"
+        android:layout_below="@id/Lider_btn"
         android:text="Выйти из аккаунта">
     </Button>
 

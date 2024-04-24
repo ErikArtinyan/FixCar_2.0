@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -85,7 +86,11 @@ public class Questions_View_Activity extends AppCompatActivity {
                             MotionToast.LONG_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
-                    list.remove(position);
+                    if(list.size() == 1){
+                        startActivity(new Intent(Questions_View_Activity.this,Main_Menu.class));
+                    }else {
+                        list.remove(position);
+                    }
                     questionAdapter.notifyDataSetChanged();
 
                 }  else {
@@ -118,7 +123,11 @@ public class Questions_View_Activity extends AppCompatActivity {
                             MotionToast.LONG_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
-                    list.remove(position);
+                    if(list.size() == 1){
+                        startActivity(new Intent(Questions_View_Activity.this,Main_Menu.class));
+                    }else {
+                        list.remove(position);
+                    }
                     questionAdapter.notifyDataSetChanged();
                 }  else {
                     MotionToast.Companion.createColorToast((Activity) context,
@@ -150,7 +159,11 @@ public class Questions_View_Activity extends AppCompatActivity {
 
 
 
-                    list.remove(position);
+                    if(list.size() == 1){
+                        startActivity(new Intent(Questions_View_Activity.this,Main_Menu.class));
+                    }else {
+                        list.remove(position);
+                    }
                     questionAdapter.notifyDataSetChanged();
                 }  else {
                     MotionToast.Companion.createColorToast((Activity) context,

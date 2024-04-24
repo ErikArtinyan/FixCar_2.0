@@ -15,10 +15,22 @@
         app:tint="@color/white"/>
 
     <EditText
-        android:id="@+id/customerEmail"
+        android:id="@+id/player_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/statusCustomer"
+        android:textColor="@color/white"
+
+        android:hint="name"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:textColorHint="@color/white" />
+
+    <EditText
+        android:id="@+id/customerEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/player_name"
         android:textColor="@color/white"
         android:layout_marginTop="30dp"
         android:ems="10"
@@ -91,6 +103,8 @@
         android:textStyle="bold"
 
         android:text="Вход" />
+
+
 
     <TextView
         android:id="@+id/accauntCreateCustomer"

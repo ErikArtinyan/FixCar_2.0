@@ -30,7 +30,7 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
 
     TextView customerStatus, question, accauntCreateCustomer;
     Button signInBtn, signUpBtn;
-    EditText emailET, passwordET, confirmPasswordET;
+    EditText emailET, passwordET, confirmPasswordET,Player_Name;
 
     FirebaseAuth mAuth;
     DatabaseReference CustomerDatabaseRef;
@@ -40,6 +40,7 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
 
     boolean isRegistering = false;
     UserModel userModel;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
         emailET = findViewById(R.id.customerEmail);
         passwordET = findViewById(R.id.customerPassword);
         confirmPasswordET = findViewById(R.id.customerConfirmPassword);
+        Player_Name = findViewById(R.id.player_name);
         userModel = new UserModel();
 
         mAuth = FirebaseAuth.getInstance();
@@ -63,6 +65,7 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
         signUpBtn.setVisibility(View.INVISIBLE);
         signUpBtn.setEnabled(false);
         confirmPasswordET.setVisibility(View.INVISIBLE);
+        Player_Name.setVisibility(View.INVISIBLE);
 
         accauntCreateCustomer.setVisibility(View.VISIBLE);
 
@@ -71,6 +74,7 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!isRegistering) {
                     signInBtn.setVisibility(View.INVISIBLE);
+                    Player_Name.setVisibility(View.VISIBLE);
                     accauntCreateCustomer.setVisibility(View.INVISIBLE);
                     signUpBtn.setVisibility(View.VISIBLE);
                     signUpBtn.setEnabled(true);
@@ -85,6 +89,7 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                name = Player_Name.getText().toString();
                 String email = emailET.getText().toString();
                 String password = passwordET.getText().toString();
                 String confirmPassword = confirmPasswordET.getText().toString();
@@ -156,7 +161,7 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
                         userModel.setBal(0);
                         userModel.setEmil(email);
                         userModel.setPassword(password);
-                        userModel.setName("null");
+                        userModel.setName(name);
                         sendEmailVerification(user);
                         Toast.makeText(CustomerRegLoginActivity.this, "На вашу электронную почту отправлено подтверждение", Toast.LENGTH_SHORT).show();
                         loadingBar.dismiss();
@@ -193,6 +198,6 @@ public class CustomerRegLoginActivity extends AppCompatActivity {
                             }
                         });
             }
-        }); // <-- Closing parenthesis for addOnCompleteListener
+        });
     }
 }

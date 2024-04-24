@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -52,7 +53,11 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                             MotionToast.LONG_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
-                    list.remove(position);
+                    if(list.size() == 1){
+                        startActivity(new Intent(Question_Flags_View_Activty.this,Main_Menu.class));
+                    }else {
+                        list.remove(position);
+                    }
                     questionAdapter.notifyDataSetChanged();
 
                 }
@@ -85,7 +90,11 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                             MotionToast.LONG_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
-                    list.remove(position);
+                    if(list.size() == 1){
+                        startActivity(new Intent(Question_Flags_View_Activty.this,Main_Menu.class));
+                    }else {
+                        list.remove(position);
+                    }
                     questionAdapter.notifyDataSetChanged();
 
                 }  else {
@@ -117,7 +126,11 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                             MotionToast.LONG_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
-                    list.remove(position);
+                    if(list.size() == 1){
+                        startActivity(new Intent(Question_Flags_View_Activty.this,Main_Menu.class));
+                    }else {
+                        list.remove(position);
+                    }
                     questionAdapter.notifyDataSetChanged();
                 }  else {
                     MotionToast.Companion.createColorToast((Activity) context,
@@ -147,8 +160,12 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                             MotionToast.GRAVITY_BOTTOM,
                             MotionToast.LONG_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
+                    if(list.size() == 1){
+                        startActivity(new Intent(Question_Flags_View_Activty.this,Main_Menu.class));
+                    }else {
+                        list.remove(position);
+                    }
 
-                    list.remove(position);
                     questionAdapter.notifyDataSetChanged();
                 }  else {
                     MotionToast.Companion.createColorToast((Activity) context,
