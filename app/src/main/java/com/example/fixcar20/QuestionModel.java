@@ -1,5 +1,8 @@
 package com.example.fixcar20;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class QuestionModel {
 
     private String answerRight;
@@ -7,12 +10,25 @@ public class QuestionModel {
     private String answer2;
     private String answer3;
     private String answer4;
+
+    List<String> onlineAnswers1;
+    List<String> onlineAnswers2;
+    List<String> onlineAnswers3;
+    List<String> onlineAnswers4;
+    List<String> questions;
+    List<String> correctAnswers;
+    List<String> onlineImages;
     private String imageURL;
     private String countryName;
     private String questionID;
 
+
+    String username;
+
+
     public QuestionModel() {
     }
+
 
     public QuestionModel(String answerRight, String answer1, String answer2, String answer3, String answer4, String imageURL, String countryName, String questionID) {
         this.answerRight = answerRight;
@@ -24,6 +40,26 @@ public class QuestionModel {
         this.countryName = countryName;
         this.questionID = questionID;
     }
+
+    public QuestionModel(String imageURL, String countryName, String questionID, String username) {
+        this.imageURL = imageURL;
+        this.countryName = countryName;
+        this.questionID = questionID;
+        this.username = username;
+    }
+
+    public QuestionModel(List<String> onlineAnswers1, List<String> onlineAnswers2, List<String> onlineAnswers3, List<String> onlineAnswers4, List<String> onlineImages, String countryName, String username, List<String> questions, List<String> correctAnswers) {
+        this.onlineAnswers1 = onlineAnswers1;
+        this.onlineAnswers2 = onlineAnswers2;
+        this.onlineAnswers3 = onlineAnswers3;
+        this.onlineAnswers4 = onlineAnswers4;
+        this.onlineImages = onlineImages;
+        this.countryName = countryName;
+        this.username = username;
+        this.questions = questions;
+        this.correctAnswers = correctAnswers;
+    }
+
 
     public String getAnswerRight() {
         return answerRight;
@@ -89,5 +125,67 @@ public class QuestionModel {
         this.questionID = questionID;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public List<String> getOnlineAnswers1() {
+        return onlineAnswers1;
+    }
+
+    public void setOnlineAnswers1(List<String> onlineAnswers1) {
+        this.onlineAnswers1 = onlineAnswers1;
+    }
+
+    public List<String> getOnlineAnswers2() {
+        return onlineAnswers2;
+    }
+
+    public void setOnlineAnswers2(List<String> onlineAnswers2) {
+        this.onlineAnswers2 = onlineAnswers2;
+    }
+
+    public List<String> getOnlineAnswers3() {
+        return onlineAnswers3;
+    }
+
+    public void setOnlineAnswers3(List<String> onlineAnswers3) {
+        this.onlineAnswers3 = onlineAnswers3;
+    }
+
+    public List<String> getOnlineAnswers4() {
+        return onlineAnswers4;
+    }
+
+    public void setOnlineAnswers4(List<String> onlineAnswers4) {
+        this.onlineAnswers4 = onlineAnswers4;
+    }
+
+    public List<String> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<String> questions) {
+        this.questions = questions;
+    }
+
+    public List<String> getCorrectAnswers() {
+        return correctAnswers;
+    }
+
+    public void setCorrectAnswers(List<String> correctAnswers) {
+        this.correctAnswers = correctAnswers;
+    }
+
+    public List<String> getOnlineImages() {
+        return onlineImages;
+    }
+
+    public void setOnlineImages(List<String> onlineImages) {
+        this.onlineImages = onlineImages;
+    }
 }

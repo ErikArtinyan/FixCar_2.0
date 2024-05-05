@@ -2,6 +2,7 @@ package com.example.fixcar20;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,17 +18,29 @@ import java.util.Random;
 
 public class Mode_Selection extends AppCompatActivity {
     Button flags;
+    Button createQuiz;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode_selection);
         flags = findViewById(R.id.flags);
+        createQuiz = findViewById(R.id.createQuiz);
 
         flags.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Mode_Selection.this, Question_Flags_View_Activty.class);
+                startActivity(intent);
+
+            }
+        });
+
+        createQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Mode_Selection.this, UsersQuiz.class);
                 startActivity(intent);
 
             }
