@@ -1,15 +1,9 @@
 package com.example.fixcar20;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionModel {
+public class OnlineQuestionModel {
 
-    private String answerRight;
-    private String answer1;
-    private String answer2;
-    private String answer3;
-    private String answer4;
 
     List<String> onlineAnswers1;
     List<String> onlineAnswers2;
@@ -18,7 +12,7 @@ public class QuestionModel {
     List<String> questions;
     List<String> correctAnswers;
     List<String> onlineImages;
-    private String imageURL;
+
     private String countryName;
     private String questionID;
 
@@ -26,78 +20,31 @@ public class QuestionModel {
     String username;
 
 
-    public QuestionModel() {
+    public OnlineQuestionModel() {
     }
 
 
-    public QuestionModel(String answerRight, String answer1, String answer2, String answer3, String answer4, String imageURL, String countryName, String questionID) {
-        this.answerRight = answerRight;
-        this.answer1 = answer1;
-        this.answer2 = answer2;
-        this.answer3 = answer3;
-        this.answer4 = answer4;
-        this.imageURL = imageURL;
-        this.countryName = countryName;
-        this.questionID = questionID;
-    }
 
-    public QuestionModel(String imageURL, String countryName, String questionID, String username) {
-        this.imageURL = imageURL;
-        this.countryName = countryName;
+
+
+
+    public OnlineQuestionModel( List<String> correctAnswers, String quizname, List<String> onlineAnswers1, List<String> onlineAnswers2, List<String> onlineAnswers3, List<String> onlineAnswers4, List<String> onlineImages, String questionID, List<String> questions, String username) {
+        this.correctAnswers = correctAnswers;
+        this.countryName = quizname;
+        this.onlineAnswers1 = onlineAnswers1;
+        this.onlineAnswers2 = onlineAnswers2;
+        this.onlineAnswers3 = onlineAnswers3;
+        this.onlineAnswers4 = onlineAnswers4;
+        this.onlineImages = onlineImages;
         this.questionID = questionID;
+        this.questions = questions;
         this.username = username;
+
+
+
     }
 
 
-
-
-    public String getAnswerRight() {
-        return answerRight;
-    }
-
-    public void setAnswerRight(String answerRight) {
-        this.answerRight = answerRight;
-    }
-
-    public String getAnswer1() {
-        return answer1;
-    }
-
-    public void setAnswer1(String answer1) {
-        this.answer1 = answer1;
-    }
-
-    public String getAnswer2() {
-        return answer2;
-    }
-
-    public void setAnswer2(String answer2) {
-        this.answer2 = answer2;
-    }
-
-    public String getAnswer3() {
-        return answer3;
-    }
-
-    public void setAnswer3(String answer3) {
-        this.answer3 = answer3;
-    }
-
-    public String getAnswer4() {
-        return answer4;
-    }
-
-    public void setAnswer4(String answer4) {
-        this.answer4 = answer4;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
 
     public String getCountryName() {
         return countryName;
@@ -179,3 +126,6 @@ public class QuestionModel {
         this.onlineImages = onlineImages;
     }
 }
+
+
+

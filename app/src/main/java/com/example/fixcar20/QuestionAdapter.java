@@ -50,28 +50,35 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     @Override
     public void onBindViewHolder(@NonNull QuestionHolder holder, int position) {
-        holder.answer1.setText(list.get(position).getAnswer1());
-        holder.answer2.setText(list.get(position).getAnswer2());
-        holder.answer3.setText(list.get(position).getAnswer3());
-        holder.answer4.setText(list.get(position).getAnswer4());
-        holder.countryName.setText((list.get(position).getCountryName()));
+        if(!list.isEmpty()) {
+            holder.answer1.setText(list.get(position).getAnswer1());
+            holder.answer2.setText(list.get(position).getAnswer2());
+            holder.answer3.setText(list.get(position).getAnswer3());
+            holder.answer4.setText(list.get(position).getAnswer4());
+            holder.countryName.setText((list.get(position).getCountryName()));
 
-        holder.clickListener(position,
-                list.get(position).getAnswerRight(),
-                list.get(position).getAnswer1(),
-                list.get(position).getAnswer2(),
-                list.get(position).getAnswer3(),
-                list.get(position).getAnswer4());
+            holder.clickListener(position,
+                    list.get(position).getAnswerRight(),
+                    list.get(position).getAnswer1(),
+                    list.get(position).getAnswer2(),
+                    list.get(position).getAnswer3(),
+                    list.get(position).getAnswer4());
 
 
-        Random random = new Random();
-        int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+            Random random = new Random();
+            int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+            if (list.get(position).getImageURL() != null) {
+                Glide.with(context.getApplicationContext())
+                        .load(list.get(position).getImageURL())
+                        .placeholder(new ColorDrawable(color))
+                        .timeout(7000)
+                        .into(holder.countryImage);
+            }
+        }
+        else{
+            Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
+        }
 
-        Glide.with(context.getApplicationContext())
-                .load(list.get(position).getImageURL())
-                .placeholder(new ColorDrawable(color))
-                .timeout(7000)
-                .into(holder.countryImage);
 
 
     }

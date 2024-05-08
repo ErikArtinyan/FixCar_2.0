@@ -86,9 +86,9 @@ public class UsersQuiz extends AppCompatActivity {
 
                     list.add(new QuestionModel(
                             "",
-                            model.getUsername(),
                             model.getCountryName(),
-                            model.getQuestionID()
+                            model.getQuestionID(),
+                            model.getUsername()
                     ));
 
 

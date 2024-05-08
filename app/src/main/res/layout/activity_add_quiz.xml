@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".AddQuiz">
+    <RelativeLayout
+        android:id="@+id/addQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        >
+
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Question"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"/>
+
+    <EditText
+        android:id="@+id/editTextQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewTitle"
+        android:layout_margin="16dp"
+        android:hint="Enter Question"
+
+        android:inputType="textMultiLine"
+        android:maxLength="63"/>
+
+    <EditText
+        android:id="@+id/editTextOption1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextQuestion"
+        android:layout_margin="16dp"
+        android:hint="Option 1"
+        android:maxLength="20"
+        android:inputType="textMultiLine"/>
+
+    <EditText
+        android:id="@+id/editTextOption2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextOption1"
+        android:layout_margin="16dp"
+        android:hint="Option 2"
+        android:maxLength="20"
+        android:inputType="textMultiLine"/>
+
+    <EditText
+        android:id="@+id/editTextOption3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextOption2"
+        android:layout_margin="16dp"
+        android:hint="Option 3"
+        android:maxLength="20"
+        android:inputType="textMultiLine"/>
+
+    <EditText
+        android:id="@+id/editTextOption4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextOption3"
+        android:layout_margin="16dp"
+        android:hint="Option 4"
+        android:maxLength="20"
+        android:inputType="textMultiLine"/>
+
+    <EditText
+        android:id="@+id/editTextCorrectAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextOption4"
+        android:layout_margin="16dp"
+        android:hint="Correct Answer"
+        android:maxLength="20"
+        android:inputType="textMultiLine"/>
+
+    <Button
+        android:backgroundTint="@color/light_blue"
+        android:id="@+id/buttonAddQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextCorrectAnswer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Add Question"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/addQuiz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:text="Add Quiz"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/QuestionName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:maxLength="30"
+            android:hint="Quiz name" />
+
+        <Button
+            android:id="@+id/buttonAddQuiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextCorrectAnswer"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/light_blue"
+            android:text="Add Quiz" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:visibility="gone"
+
+        android:id="@+id/finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/light_blue"
+        android:text="finish" />
+
+</RelativeLayout>
