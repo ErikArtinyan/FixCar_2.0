@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/basic_color"
+
     tools:context=".Main_Menu">
 
 
@@ -27,8 +28,17 @@
         android:id="@+id/bali"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="1dp"
+        android:shadowColor="@color/warning_bg_color"
+        android:shadowRadius="3"
+        android:text="20"
+        android:textColor="@color/white"
         android:textSize="20dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/settings_btn"

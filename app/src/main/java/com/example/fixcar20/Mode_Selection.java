@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.fixcar20.ui.Mayraqaxaq.Armenia;
 import com.example.fixcar20.ui.Mayraqaxaq.Egiptos;
@@ -17,7 +18,7 @@ import java.util.Random;
 
 
 public class Mode_Selection extends AppCompatActivity {
-    Button flags;
+    Button flags,maps;
     Button createQuiz;
 
     @SuppressLint("MissingInflatedId")
@@ -26,11 +27,23 @@ public class Mode_Selection extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode_selection);
         flags = findViewById(R.id.flags);
+
         createQuiz = findViewById(R.id.createQuiz);
+        maps = findViewById(R.id.maps);
+        maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Mode_Selection.this, "click", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Mode_Selection.this, Question_Maps_View_Activity.class);
+                startActivity(intent);
+
+            }
+        });
 
         flags.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(Mode_Selection.this, "click", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Mode_Selection.this, Question_Flags_View_Activty.class);
                 startActivity(intent);
 

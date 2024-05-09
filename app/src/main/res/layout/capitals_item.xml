@@ -5,7 +5,17 @@
     android:background="#5894D3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:padding="5dp"
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
 
     <TextView
         android:id="@+id/countryesName"
@@ -26,6 +36,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         app:srcCompat="@drawable/castlee"
+
 
         />
 
@@ -85,5 +96,6 @@
                 android:layout_margin="2.5dp"/>
 
         </LinearLayout>
+    </LinearLayout>
     </LinearLayout>
 

@@ -66,9 +66,14 @@ public class OnlineQuestiosActivity extends AppCompatActivity {
                             MotionToast.GRAVITY_BOTTOM,
                             MotionToast.LONG_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
+                    if(list.size() == 1){
+                        startActivity(new Intent(OnlineQuestiosActivity.this, Main_Menu.class));
 
-                    list.remove(position);
-                    questionAdapter.notifyDataSetChanged();
+                    }else{
+                        list.remove(position);
+                        questionAdapter.notifyDataSetChanged();
+                    }
+
 
                 } else {
                     MotionToast.Companion.createColorToast((Activity) context,

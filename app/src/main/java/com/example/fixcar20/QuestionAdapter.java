@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Path;
 import android.graphics.drawable.ColorDrawable;
+import android.health.connect.datatypes.HeightRecord;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.api.Distribution;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -51,6 +56,23 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     @Override
     public void onBindViewHolder(@NonNull QuestionHolder holder, int position) {
         if(!list.isEmpty()) {
+            if (list.get(position).getImageURL() != null && !list.get(position).getImageURL().isEmpty()) {
+                Random random = new Random();
+                int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+
+                Glide.with(context.getApplicationContext())
+                        .load(list.get(position).getImageURL())
+                        .placeholder(new ColorDrawable(color))
+                        .timeout(7000)
+                        .into(holder.countryImage);
+            }else{
+                holder.countryImage.setVisibility(View.GONE);
+
+                ViewGroup.LayoutParams params = holder.layout.getLayoutParams();
+                params.height= ViewGroup.LayoutParams.WRAP_CONTENT;
+                holder.layout.setLayoutParams(params);
+            }
+
             holder.answer1.setText(list.get(position).getAnswer1());
             holder.answer2.setText(list.get(position).getAnswer2());
             holder.answer3.setText(list.get(position).getAnswer3());
@@ -65,19 +87,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
                     list.get(position).getAnswer4());
 
 
-            Random random = new Random();
-            int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
-            if (list.get(position).getImageURL() != null) {
-                Glide.with(context.getApplicationContext())
-                        .load(list.get(position).getImageURL())
-                        .placeholder(new ColorDrawable(color))
-                        .timeout(7000)
-                        .into(holder.countryImage);
-            }
+
         }
-        else{
-            Toast.makeText(context, "null", Toast.LENGTH_SHORT).show();
-        }
+
 
 
 
@@ -105,6 +117,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         ImageView countryImage;
         Button answer1, answer2, answer3, answer4;
         TextView countryName;
+        LinearLayout layout,parentLayout;
 
         public QuestionHolder(@NonNull View itemView) {
             super(itemView);
@@ -114,6 +127,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             answer3 = itemView.findViewById(R.id.answer3);
             answer4 = itemView.findViewById(R.id.answer4);
             countryName = itemView.findViewById(R.id.countryesName);
+            layout = itemView.findViewById(R.id.layout);
+
 
 
 
@@ -134,13 +149,13 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             answer3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onPressed.onanswer1(position,answer,answer33);
+                    onPressed.onanswer3(position,answer,answer33);
                 }
             });
             answer4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onPressed.onanswer1(position,answer,answer44);
+                    onPressed.onanswer4(position,answer,answer44);
                 }
             });
         }

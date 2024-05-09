@@ -54,8 +54,14 @@ public class Questions_View_Activity extends AppCompatActivity {
                             MotionToast.LONG_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
-                    list.remove(position);
-                    questionAdapter.notifyDataSetChanged();
+                    if(list.size() == 1){
+                        startActivity(new Intent(Questions_View_Activity.this, Main_Menu.class));
+
+                    }else{
+                        list.remove(position);
+                        questionAdapter.notifyDataSetChanged();
+                    }
+
 
                 }
                 else {

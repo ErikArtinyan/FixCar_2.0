@@ -77,7 +77,6 @@ public class adapter extends RecyclerView.Adapter<adapter.UserHolder> {
 
         }
 
-
     }
 
 }

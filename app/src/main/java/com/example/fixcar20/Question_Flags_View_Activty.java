@@ -241,3 +241,4 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
         questionAdapter.notifyDataSetChanged();
     }
 }
+
