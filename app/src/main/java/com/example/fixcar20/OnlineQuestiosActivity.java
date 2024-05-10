@@ -203,8 +203,7 @@ public class OnlineQuestiosActivity extends AppCompatActivity {
     @SuppressLint("NotifyDataSetChanged")
     private void loadData() {
         String id = getIntent().getStringExtra("id");
-        Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
-        DocumentReference reference = FirebaseFirestore.getInstance().collection("Quiz").document(id);
+         DocumentReference reference = FirebaseFirestore.getInstance().collection("Quiz").document(id);
 
         reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -214,12 +213,10 @@ public class OnlineQuestiosActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     models = task.getResult().toObject(OnlineQuestionModel.class);
                     String username = (String) task.getResult().get("username");
-                    Toast.makeText(OnlineQuestiosActivity.this, username, Toast.LENGTH_SHORT).show();
 
                     if (models != null) {
                         for (int i = 0; i < models.questions.size(); i++) {
-                            Toast.makeText(OnlineQuestiosActivity.this, "+1", Toast.LENGTH_SHORT).show();
-                            QuestionModel model = new QuestionModel(models.getCorrectAnswers().get(i), models.getOnlineAnswers1().get(i),
+                             QuestionModel model = new QuestionModel(models.getCorrectAnswers().get(i), models.getOnlineAnswers1().get(i),
                                     models.getOnlineAnswers2().get(i), models.getOnlineAnswers3().get(i), models.getOnlineAnswers4().get(i),
                                     "", models.getQuestions().get(i), models.getQuestionID());
                             if(model == null){

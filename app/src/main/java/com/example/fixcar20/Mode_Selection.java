@@ -33,8 +33,7 @@ public class Mode_Selection extends AppCompatActivity {
         maps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Mode_Selection.this, "click", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Mode_Selection.this, Question_Maps_View_Activity.class);
+               Intent intent = new Intent(Mode_Selection.this, Question_Maps_View_Activity.class);
                 startActivity(intent);
 
             }
@@ -43,8 +42,7 @@ public class Mode_Selection extends AppCompatActivity {
         flags.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Mode_Selection.this, "click", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Mode_Selection.this, Question_Flags_View_Activty.class);
+               Intent intent = new Intent(Mode_Selection.this, Question_Flags_View_Activty.class);
                 startActivity(intent);
 
             }
