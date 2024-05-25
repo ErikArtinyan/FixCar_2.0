@@ -11,6 +11,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +25,19 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
     private RecyclerView recyclerView;
     private QuestionAdapter questionAdapter;
     private List<QuestionModel> list;
+    private int hearts = 3;
+    ImageView heart2;
+    ImageView heart3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_flags_view_activty);
         list = new ArrayList<>();
-        recyclerView = findViewById(R.id.recycleview); // Assigning recyclerView
+        recyclerView = findViewById(R.id.recycleview);
+        heart2 = findViewById(R.id.heart2);
+        heart3 = findViewById(R.id.heart3);
+        // Assigning recyclerView
         ///////
         questionAdapter = new QuestionAdapter(list,Question_Flags_View_Activty.this);
 
@@ -50,7 +58,7 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                             "Молодец!",
                             MotionToastStyle.SUCCESS,
                             MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.LONG_DURATION,
+                            MotionToast.SHORT_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if(list.size() == 1){
@@ -62,12 +70,28 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
 
                 }
                 else {
+
+                    switch (hearts){
+                        case 1: Intent intent = new Intent(Question_Flags_View_Activty.this,Mode_Selection.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        break;
+                        case 2:
+                            hearts--;
+                            heart2.setVisibility(View.INVISIBLE);
+                            break;
+                        case 3:
+                            hearts--;
+                            heart3.setVisibility(View.INVISIBLE);
+                            break;
+
+                    }
                     MotionToast.Companion.createColorToast((Activity) context,
                             "Ответ неправильный!",
                             "подумай еще",
                             MotionToastStyle.ERROR,
                             MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.LONG_DURATION,
+                            MotionToast.SHORT_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 //
 
@@ -78,6 +102,21 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
             @Override
             public void onanswer2(int position, String answer2, String answer) {
                 if(answer2.equals(answer)){
+                    switch (hearts){
+                        case 1: Intent intent = new Intent(Question_Flags_View_Activty.this,Mode_Selection.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            break;
+                        case 2:
+                            hearts--;
+                            heart2.setVisibility(View.INVISIBLE);
+                            break;
+                        case 3:
+                            hearts--;
+                            heart3.setVisibility(View.INVISIBLE);
+                            break;
+
+                    }
 
 
                     UserModel.baler(context);
@@ -87,7 +126,7 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                             "Молодец!",
                             MotionToastStyle.SUCCESS,
                             MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.LONG_DURATION,
+                            MotionToast.SHORT_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if(list.size() == 1){
@@ -98,12 +137,42 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                     questionAdapter.notifyDataSetChanged();
 
                 }  else {
+                    switch (hearts){
+                        case 1: Intent intent = new Intent(Question_Flags_View_Activty.this,Mode_Selection.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            break;
+                        case 2:
+                            hearts--;
+                            heart2.setVisibility(View.INVISIBLE);
+                            break;
+                        case 3:
+                            hearts--;
+                            heart3.setVisibility(View.INVISIBLE);
+                            break;
+
+                    }
+                    switch (hearts){
+                        case 1: Intent intent = new Intent(Question_Flags_View_Activty.this,Mode_Selection.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            break;
+                        case 2:
+                            hearts--;
+                            heart2.setVisibility(View.INVISIBLE);
+                            break;
+                        case 3:
+                            hearts--;
+                            heart3.setVisibility(View.INVISIBLE);
+                            break;
+
+                    }
                     MotionToast.Companion.createColorToast((Activity) context,
                             "Ответ неправильный!",
                             "подумай еще",
                             MotionToastStyle.ERROR,
                             MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.LONG_DURATION,
+                            MotionToast.SHORT_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 //
 
@@ -123,7 +192,7 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                             "Молодец!",
                             MotionToastStyle.SUCCESS,
                             MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.LONG_DURATION,
+                            MotionToast.SHORT_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if(list.size() == 1){
@@ -133,12 +202,28 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                     }
                     questionAdapter.notifyDataSetChanged();
                 }  else {
+                    switch (hearts){
+                        case 1: Intent intent = new Intent(Question_Flags_View_Activty.this,Mode_Selection.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            break;
+                        case 2:
+                            hearts--;
+                            heart2.setVisibility(View.INVISIBLE);
+                            break;
+                        case 3:
+                            hearts--;
+                            heart3.setVisibility(View.INVISIBLE);
+                            break;
+
+                    }
+
                     MotionToast.Companion.createColorToast((Activity) context,
                             "Ответ неправильный!",
                             "подумай еще",
                             MotionToastStyle.ERROR,
                             MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.LONG_DURATION,
+                            MotionToast.SHORT_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 //
 
@@ -158,7 +243,7 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                             "Молодец!",
                             MotionToastStyle.SUCCESS,
                             MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.LONG_DURATION,
+                            MotionToast.SHORT_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
                     if(list.size() == 1){
                         startActivity(new Intent(Question_Flags_View_Activty.this,Main_Menu.class));
@@ -168,12 +253,28 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
 
                     questionAdapter.notifyDataSetChanged();
                 }  else {
+                    switch (hearts){
+                        case 1: Intent intent = new Intent(Question_Flags_View_Activty.this,Mode_Selection.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            break;
+                        case 2:
+                            hearts--;
+                            heart2.setVisibility(View.INVISIBLE);
+                            break;
+                        case 3:
+                            hearts--;
+                            heart3.setVisibility(View.INVISIBLE);
+                            break;
+
+                    }
                     MotionToast.Companion.createColorToast((Activity) context,
                             "Ответ неправильный!",
                             "подумай еще",
                             MotionToastStyle.ERROR,
                             MotionToast.GRAVITY_BOTTOM,
-                            MotionToast.LONG_DURATION,
+                            MotionToast.SHORT_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 //
 
@@ -388,6 +489,329 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                 "Флаг",
                 "215ef5n3215"
         )); //20
+        list.add(new QuestionModel(
+                "Ватикан",
+                "Сан-Марино",
+                "Ватикан",
+                "Бутан",
+                "Марокко",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%92%D0%90%D0%A2%D0%98%D0%9A%D0%90%D0%9D.png?alt=media&token=0617c1cc-7284-4ab8-9558-8606e296c457",
+                "Флаг",
+                "215ef5n3215"
+        )); //21
+        list.add(new QuestionModel(
+                "Греция",
+                "Грузия",
+                "Финландия",
+                "Норвегия",
+                "Греция",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%93%D0%A0%D0%95%D0%A6%D0%98%D0%AF.png?alt=media&token=2377b3eb-5784-4763-bbff-75b16bd7e34b",
+                "Флаг",
+                "215ef5n3215"
+        )); //22
+        list.add(new QuestionModel(
+                "Испания",
+                "Индия",
+                "Португалия",
+                "Испания",
+                "Израиль",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%98%D0%A1%D0%9F%D0%90%D0%9D%D0%98%D0%AF.png?alt=media&token=daaa6384-1d91-4115-8ae0-819a15d67573",
+                "Флаг",
+                "215ef5n3215"
+        )); //23
+        list.add(new QuestionModel(
+                "Вьетнам",
+                "Мьянма",
+                "Лаос",
+                "Вьетнам",
+                "Палестина",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%92%D0%AC%D0%95%D0%A2%D0%9D%D0%90%D0%9C.png?alt=media&token=4c48ec51-eb50-46a0-ba94-2158672db622",
+                "Флаг",
+                "215ef5n3215"
+        )); //24
+        list.add(new QuestionModel(
+                "Камбоджа",
+                "Мьянма",
+                "Лаос",
+                "Палестина",
+                "Камбоджа",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%9A%D0%90%D0%9C%D0%91%D0%9E%D0%94%D0%96%D0%90.png?alt=media&token=6033b99f-5c47-43d6-a35a-b83428c885c7",
+                "Флаг",
+                "215ef5n3215"
+        )); //25
+        list.add(new QuestionModel(
+                "Лаос",
+                "Лаос",
+                "Латвия",
+                "Таиланд",
+                "Непал",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%9B%D0%90%D0%9E%D0%A1.png?alt=media&token=20cb7274-8ed2-4c1a-9871-ff5dd7addfe1",
+                "Флаг",
+                "215ef5n3215"
+        )); //26
+        list.add(new QuestionModel(
+                "Мьянма",
+                "Литва",
+                "Турция",
+                "Тайвань",
+                "Мьянма",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%9C%D0%AC%D0%AF%D0%9D%D0%9C%D0%90.png?alt=media&token=4ebbee77-44e3-4bbf-8712-bcd74e084bcd",
+                "Флаг",
+                "215ef5n3215"
+        )); //27
+        list.add(new QuestionModel(
+                "Непал",
+                "Индия",
+                "Пакистан",
+                "Непал",
+                "Бутан",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%9D%D0%95%D0%9F%D0%90%D0%9B.png?alt=media&token=c79a5aa5-f93d-4994-b6a4-1bcbaea0c063",
+                "Флаг",
+                "215ef5n3215"
+        )); //28
+        list.add(new QuestionModel(
+                "Палестина",
+                "ОАЭ",
+                "Палестина",
+                "Ирак",
+                "Сирия",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%9F%D0%90%D0%9B%D0%95%D0%A1%D0%A2%D0%98%D0%9D%D0%90.png?alt=media&token=0b49642b-df78-4ba9-a7f8-a758827e9ea3",
+                "Флаг",
+                "215ef5n3215"
+        )); //29
+        list.add(new QuestionModel(
+                "Португалия",
+                "Португалия",
+                "Гана",
+                "Испания",
+                "Бутан",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%9F%D0%9E%D0%A0%D0%A2%D0%A3%D0%93%D0%90%D0%9B%D0%98%D0%AF.png?alt=media&token=72de1edc-59e1-4288-9c75-e999a2cc6ab9",
+                "Флаг",
+                "215ef5n3215"
+        )); //30
+
+        list.add(new QuestionModel(
+                "Бутан",
+                "Бутан",
+                "Китай",
+                "Непал",
+                "Индия",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%91%D0%A3%D0%A2%D0%90%D0%9D.png?alt=media&token=39194b9a-e0f2-4bd4-9717-575091c8d92d",
+                "Флаг",
+                "215ef5n3215"
+        )); //31
+
+        list.add(new QuestionModel(
+                "Тайвань",
+                "Китай",
+                "Тайвань",
+                "Япония",
+                "Корея",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%A2%D0%90%D0%99%D0%92%D0%90%D0%9D%D0%AC.png?alt=media&token=9b93b66d-e2dd-4662-bb21-2262ad4fdbdf",
+                "Флаг",
+                "215ef5n3216"
+        )); //32
+
+        list.add(new QuestionModel(
+                "Марокко",
+                "Алжир",
+                "Марокко",
+                "Тунис",
+                "Ливия",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%9C%D0%90%D0%A0%D0%9E%D0%9A%D0%9A%D0%9E.png?alt=media&token=94958829-b69f-4d90-b4be-407c5133333e",
+                "Флаг",
+                "215ef5n3217"
+        )); //33
+
+        list.add(new QuestionModel(
+                "Монако",
+                "Франция",
+                "Италия",
+                "Монако",
+                "Испания",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%9C%D0%9E%D0%9D%D0%90%D0%9A%D0%9E.png?alt=media&token=bff10867-ff28-4048-ad15-801f3224bf51",
+                "Флаг",
+                "215ef5n3218"
+        )); //34
+
+        list.add(new QuestionModel(
+                "Индонезия",
+                "Малайзия",
+                "Филиппины",
+                "Индонезия",
+                "Таиланд",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%98%D0%9D%D0%94%D0%9E%D0%9D%D0%95%D0%97%D0%98%D0%AF.png?alt=media&token=6725eec6-ccd2-4712-a5e6-a8c78b74a6a2",
+                "Флаг",
+                "215ef5n3219"
+        )); //35
+
+        list.add(new QuestionModel(
+                "Бельгия",
+                "Франция",
+                "Бельгия",
+                "Нидерланды",
+                "Германия",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%91%D0%95%D0%9B%D0%AC%D0%93%D0%98%D0%AF.png?alt=media&token=973bcc07-14f0-4de0-8410-e0031c5740b1",
+                "Флаг",
+                "215ef5n3220"
+        )); //36
+
+        list.add(new QuestionModel(
+                "Израиль",
+                "Египет",
+                "Иордания",
+                "Сирия",
+                "Израиль",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%98%D0%97%D0%A0%D0%90%D0%98%D0%9B%D0%AC.png?alt=media&token=c3266152-4e86-4588-8db0-ca379d4948d7",
+                "Флаг",
+                "215ef5n3221"
+        )); //37
+
+        list.add(new QuestionModel(
+                "Ирак",
+                "Ирак",
+                "Сирия",
+                "Иран",
+                "Турция",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%98%D0%A0%D0%90%D0%9A.png?alt=media&token=af228c36-00e3-4403-a8b6-47738c64912b",
+                "Флаг",
+                "215ef5n3222"
+        )); //38
+
+        list.add(new QuestionModel(
+                "Ливан",
+                "Ливия",
+                "Ливан",
+                "Иордания",
+                "Израиль",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%9B%D0%98%D0%92%D0%90%D0%9D.png?alt=media&token=175f688c-6b5d-4502-919c-dc5e17a27937",
+                "Флаг",
+                "215ef5n3223"
+        )); //39
+
+        list.add(new QuestionModel(
+                "Польша",
+                "Чехия",
+                "Германия",
+                "Польша",
+                "Словакия",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%9F%D0%9E%D0%9B%D0%AC%D0%A8%D0%90.png?alt=media&token=b2291521-c2f1-4645-b787-ed5632f7cbb4",
+                "Флаг",
+                "215ef5n3224"
+        )); //40
+
+        list.add(new QuestionModel(
+                "Сербия",
+                "Россия",
+                "Сербия",
+                "Черногория",
+                "Хорватия",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%A1%D0%95%D0%A0%D0%91%D0%98%D0%AF.png?alt=media&token=b718fb2b-ceca-43f4-afb7-947ad8cfe33e",
+                "Флаг",
+                "215ef5n3225"
+        )); //41
+
+        list.add(new QuestionModel(
+                "Сирия",
+                "Ливан",
+                "Иордания",
+                "Сирия",
+                "Турция",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%A1%D0%98%D0%A0%D0%98%D0%AF.png?alt=media&token=37aa5df2-cf27-4a82-b9e4-9348aec6d158",
+                "Флаг",
+                "215ef5n3226"
+        )); //42
+
+        list.add(new QuestionModel(
+                "Словакия",
+                "Словакия",
+                "Чехия",
+                "Словения",
+                "Россия",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%A1%D0%9B%D0%9E%D0%92%D0%90%D0%9A%D0%98%D0%AF.png?alt=media&token=3ee4a0e7-7d60-4155-b9d9-b7b96b3ff872",
+                "Флаг",
+                "215ef5n3227"
+        )); //43
+
+        list.add(new QuestionModel(
+                "Словения",
+                "Словакия",
+                "Словения",
+                "Россия",
+                "Сербия",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%A1%D0%9B%D0%9E%D0%92%D0%95%D0%9D%D0%98%D0%AF.png?alt=media&token=86f339f3-5d15-4445-88a8-66fce788771c",
+                "Флаг",
+                "215ef5n3228"
+        )); //44
+
+        list.add(new QuestionModel(
+                "Шри-Ланка",
+                "Индия",
+                "Мальдивы",
+                "Пакистан",
+                "Шри-Ланка",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%A8%D0%A0%D0%98-%D0%9B%D0%90%D0%9D%D0%9A%D0%90.png?alt=media&token=f039b404-fcc7-4d96-b73c-e03a3e1039a4",
+                "Флаг",
+                "215ef5n3229"
+        )); //45
+
+        list.add(new QuestionModel(
+                "Дания",
+                "Норвегия",
+                "Швеция",
+                "Дания",
+                "Финляндия",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%94%D0%90%D0%9D%D0%98%D0%AF.png?alt=media&token=7a85b5d9-09a0-4467-bdc3-f29f023e75b2",
+                "Флаг",
+                "215ef5n3228"
+        )); //46
+
+        list.add(new QuestionModel(
+                "Мозамбик",
+                "Малави",
+                "Замбия",
+                "Мозамбик",
+                "Зимбабве",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%9C%D0%9E%D0%97%D0%90%D0%9C%D0%91%D0%98%D0%9A.png?alt=media&token=6fb8ada8-90b9-49d6-9442-1489798712ed",
+                "Флаг",
+                "215ef5n3229"
+        )); //47
+
+        list.add(new QuestionModel(
+                "Доминикана",
+                "Гаити",
+                "Доминикана",
+                "Куба",
+                "Ямайка",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%94%D0%9E%D0%9C%D0%98%D0%9D%D0%98%D0%9A%D0%90%D0%9D%D0%90.png?alt=media&token=3f0533b5-3cde-43d0-9699-83eff548eb1f",
+                "Флаг",
+                "215ef5n3230"
+        )); //48
+
+        list.add(new QuestionModel(
+                "Колумбия",
+                "Колумбия",
+                "Венесуэла",
+                "Эквадор",
+                "Перу",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%9A%D0%9E%D0%9B%D0%A3%D0%9C%D0%91%D0%98%D0%AF.png?alt=media&token=76b0cd6e-b5f2-4fc8-ac42-db964c956d4c",
+                "Флаг",
+                "215ef5n3231"
+        )); //49
+
+        list.add(new QuestionModel(
+                "Венесуэла",
+                "Колумбия",
+                "Венесуэла",
+                "Эквадор",
+                "Перу",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%92%D0%95%D0%9D%D0%95%D0%A1%D0%A3%D0%AD%D0%9B%D0%90.png?alt=media&token=b90ebe16-b381-43c7-bee9-8cdb97e73c4f",
+                "Флаг",
+                "215ef5n3232"
+        )); //50
+
+
+
         questionAdapter.notifyDataSetChanged();
     }
 }

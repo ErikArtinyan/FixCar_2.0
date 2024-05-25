@@ -6,23 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/basic_color"
 
+
     tools:context=".Main_Menu">
 
-
-
-
-    <Button
-        android:id="@+id/start_btn"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="260dp"
-        android:textSize="20dp"
-        android:backgroundTint="@color/blue"
-        android:text="Начать"
-        android:onClick="next">
-
-    </Button>
 
     <TextView
         android:id="@+id/bali"
@@ -35,47 +21,55 @@
         android:elevation="1dp"
         android:shadowColor="@color/warning_bg_color"
         android:shadowRadius="3"
-        android:text="20"
+        android:text="0"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="@dimen/_15sdp"
         android:textStyle="bold" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_centerInParent="true">
 
     <Button
-        android:id="@+id/settings_btn"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:textSize="20dp"
-        android:layout_marginTop="10dp"
+        android:id="@+id/start_btn"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:textSize="@dimen/_15sdp"
         android:backgroundTint="@color/blue"
-        android:layout_below="@+id/start_btn"
-        android:text="Настройки">
+        android:text="Начать"
+        android:onClick="next">
+
     </Button>
+
+
+
+
 
     <Button
         android:id="@+id/Lider_btn"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:textSize="20dp"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_50sdp"
+
+        android:textSize="@dimen/_15sdp"
         android:onClick="Leader"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/blue"
-        android:layout_below="@+id/settings_btn"
         android:text="Лидеры">
     </Button>
 
     <Button
         android:id="@+id/logout_btn"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
-        android:textSize="20dp"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_50sdp"
+
+        android:textSize="@dimen/_15sdp"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/blue"
-        android:layout_below="@id/Lider_btn"
+
         android:text="Выйти из аккаунта">
     </Button>
+</LinearLayout>
 
 
 

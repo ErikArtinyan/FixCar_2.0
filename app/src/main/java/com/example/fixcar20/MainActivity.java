@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     finally {
-                       if(FirebaseAuth.getInstance().getUid() != null){
+                       if(FirebaseAuth.getInstance().getUid() != null && FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()){
 
                            Intent welcomeIntent1 = new Intent(MainActivity.this, Main_Menu.class);
                            startActivity(welcomeIntent1);

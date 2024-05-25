@@ -1,25 +1,17 @@
 package com.example.fixcar20;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import com.example.fixcar20.ui.Mayraqaxaq.Armenia;
-import com.example.fixcar20.ui.Mayraqaxaq.Egiptos;
-import com.example.fixcar20.ui.Mayraqaxaq.Germania;
-import com.example.fixcar20.ui.Mayraqaxaq.Vrastan;
-
-import java.util.Random;
+import android.widget.ImageButton;
 
 
 public class Mode_Selection extends AppCompatActivity {
-    Button flags,maps;
-    Button createQuiz;
+    ImageButton flags,maps;
+    ImageButton createQuiz;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -59,7 +51,7 @@ public class Mode_Selection extends AppCompatActivity {
     }
 
     public void next(View view) {
-       Intent intent = new Intent(Mode_Selection.this, Questions_View_Activity.class);
+       Intent intent = new Intent(Mode_Selection.this, Question_Capitals_View_Activity.class);
             // Создаем объект Random для генерации случайных чисел
            // Random random = new Random();
            // // Генерируем случайное число от 1 до 6

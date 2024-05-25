@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:text="Название страны"
         android:textStyle="bold"
-        android:textSize="35dp"
+        android:textSize="@dimen/_24sdp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dimen_48"/>
 
@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_weight="1"
         >
 
@@ -54,20 +54,20 @@
         <Button
             android:id="@+id/answer1"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/_45sdp"
             android:layout_margin="2.5dp"
             android:backgroundTint="@color/blue"
             android:text="Вариант 1"
-            android:textSize="24dp"
+            android:textSize="@dimen/_18sdp"
             android:textStyle="bold" />
 
         <Button
                 android:id="@+id/answer3"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:backgroundTint="@color/blue"
+            android:layout_height="@dimen/_45sdp"
+            android:backgroundTint="@color/blue"
                 android:textStyle="bold"
-                android:textSize="24dp"
+            android:textSize="@dimen/_18sdp"
                 android:text="Вариант 3"
                 android:layout_margin="2.5dp"/>
 
@@ -77,10 +77,10 @@
             <Button
                 android:id="@+id/answer2"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/_45sdp"
                 android:backgroundTint="@color/blue"
                 android:textStyle="bold"
-                android:textSize="24dp"
+                android:textSize="@dimen/_18sdp"
                 android:text="Вариант 2"
                 android:layout_margin="2.5dp"
                 android:layout_marginBottom="8dp"/>
@@ -88,10 +88,10 @@
             <Button
                 android:id="@+id/answer4"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/_45sdp"
                 android:backgroundTint="@color/blue"
                 android:text="Вариант 4"
-                android:textSize="24dp"
+                android:textSize="@dimen/_18sdp"
                 android:textStyle="bold"
                 android:layout_margin="2.5dp"/>
 

@@ -38,7 +38,7 @@
             android:name=".Question_Flags_View_Activty"
             android:exported="false" />
         <activity
-            android:name=".Questions_View_Activity"
+            android:name=".Question_Capitals_View_Activity"
             android:exported="false" />
         <activity
             android:name=".ui.Mayraqaxaq.Hndkastan"
