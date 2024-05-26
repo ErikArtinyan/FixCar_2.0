@@ -25,7 +25,7 @@ public class Main_Menu extends AppCompatActivity {
     private FirebaseUser user;
     private String customerID;
 
-    public static TextView bali;
+
     public static int bal = 0;
     long bal1;
 
@@ -37,7 +37,7 @@ public class Main_Menu extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         customerID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        bali = findViewById(R.id.bali);
+
 
 
 
@@ -50,7 +50,7 @@ public class Main_Menu extends AppCompatActivity {
                     if (document.exists()) {
                         // Получаем значение поля "bal" из документа
 
-                        bali.setText(Long.toString( document.getLong("bal")));
+                     //   bali.setText(Long.toString( document.getLong("bal")));
 
                     } else {
                         Log.d("Firestore", "No such document");
