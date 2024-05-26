@@ -55,7 +55,7 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful() && task.getResult().exists()) {
                     if (task.getResult().get("bal_flags") == null) {
-                        
+
                         FirebaseFirestore.getInstance().collection("users").document(user.getUid()).update("bal_flags", 0).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
@@ -309,9 +309,6 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
                     if (list.size() == 1) {
                         Intent intent = new Intent(Question_Flags_View_Activty.this,End.class);
-                        if(bals >= maxBals){
-                            intent.putExtra("uraa","uraa");
-                        }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra("bals", String.valueOf(bals));

@@ -92,16 +92,10 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-                        Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
-                        if(bals >= maxBals){
-                            intent.putExtra("uraa","uraa");
-                        }
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
                         intent.putExtra("bals", String.valueOf(bals));
                         intent.putExtra("maxBals", String.valueOf(maxBals));
                         intent.putExtra("context", "Question_Capitals_View_Activity");
-                        startActivity(intent);
                         finish();
 
                     } else {
@@ -165,16 +159,10 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-                        Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
-                        if(bals >= maxBals){
-                            intent.putExtra("uraa","uraa");
-                        }
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
                         intent.putExtra("bals", String.valueOf(bals));
                         intent.putExtra("maxBals", String.valueOf(maxBals));
                         intent.putExtra("context", "Question_Capitals_View_Activity");
-                        startActivity(intent);
                         finish();
                     } else {
                         list.remove(position);
@@ -236,16 +224,10 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-                        Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
-                        if(bals >= maxBals){
-                            intent.putExtra("uraa","uraa");
-                        }
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
                         intent.putExtra("bals", String.valueOf(bals));
                         intent.putExtra("maxBals", String.valueOf(maxBals));
                         intent.putExtra("context", "Question_Capitals_View_Activity");
-                        startActivity(intent);
                         finish();
                     } else {
                         list.remove(position);
@@ -306,17 +288,11 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
 
 
                     if (list.size() == 1) {
-                        Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
-                        if(bals >= maxBals){
-                            intent.putExtra("uraa","uraa");
-                        }
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
                         intent.putExtra("bals", String.valueOf(bals));
                         intent.putExtra("maxBals", String.valueOf(maxBals));
                         intent.putExtra("context", "Question_Capitals_View_Activity");
-                        startActivity(intent);
-
+                        finish();
                         finish();
                     } else {
                         list.remove(position);
@@ -367,16 +343,6 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void loadData() {
-        list.add(new QuestionModel(
-                "Санто-Доминго",
-                "Санто-Доминго",
-                "Сантьяго",
-                "Ла-Вега",
-                "Пуэрто-Плата",
-                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%A1%D0%B0%D0%BD%D1%82%D0%BE-%D0%94%D0%BE%D0%BC%D0%B8%D0%BD%D0%B3%D0%BE.png?alt=media&token=df75e454-4817-497b-bdde-45f03b4ad7bb",
-                "Доминиканская Республика",
-                "65ea156591"
-        )); //42
         list.add(new QuestionModel(
                 "Ереван",
                 "Ванадзор",
@@ -798,7 +764,16 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                 "65ea156582"
         )); //41
 
-
+        list.add(new QuestionModel(
+                "Санто-Доминго",
+                "Санто-Доминго",
+                "Сантьяго",
+                "Ла-Вега",
+                "Пуэрто-Плата",
+                "https://firebasestorage.googleapis.com/v0/b/fixcar2-0.appspot.com/o/%D0%A1%D0%B0%D0%BD%D1%82%D0%BE-%D0%94%D0%BE%D0%BC%D0%B8%D0%BD%D0%B3%D0%BE.png?alt=media&token=df75e454-4817-497b-bdde-45f03b4ad7bb",
+                "Доминиканская Республика",
+                "65ea156591"
+        )); //42
 
         list.add(new QuestionModel(
                 "Рабат",
