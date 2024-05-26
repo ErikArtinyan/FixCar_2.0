@@ -92,9 +92,8 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-<<<<<<< HEAD
-                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
-=======
+
+
                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
                        if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
@@ -102,7 +101,7 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
->>>>>>> origin/master
+
                         intent.putExtra("bals", String.valueOf(bals));
                         intent.putExtra("maxBals", String.valueOf(maxBals));
                         intent.putExtra("context", "Question_Capitals_View_Activity");
@@ -169,9 +168,8 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-<<<<<<< HEAD
-                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
-=======
+
+
                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
                        if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
@@ -179,7 +177,7 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
->>>>>>> origin/master
+
                         intent.putExtra("bals", String.valueOf(bals));
                         intent.putExtra("maxBals", String.valueOf(maxBals));
                         intent.putExtra("context", "Question_Capitals_View_Activity");
@@ -244,9 +242,8 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-<<<<<<< HEAD
-                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
-=======
+
+
                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
                        if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
@@ -254,7 +251,7 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
->>>>>>> origin/master
+
                         intent.putExtra("bals", String.valueOf(bals));
                         intent.putExtra("maxBals", String.valueOf(maxBals));
                         intent.putExtra("context", "Question_Capitals_View_Activity");
@@ -318,9 +315,7 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
 
 
                     if (list.size() == 1) {
-<<<<<<< HEAD
-                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
-=======
+
                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
                        if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
@@ -328,7 +323,7 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
->>>>>>> origin/master
+
                         intent.putExtra("bals", String.valueOf(bals));
                         intent.putExtra("maxBals", String.valueOf(maxBals));
                         intent.putExtra("context", "Question_Capitals_View_Activity");
