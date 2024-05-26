@@ -89,6 +89,29 @@ public class UserModel {
                     }
                 });
     }
+    public  static void baler(int bals,String name){
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userDocument = db.collection("users").document(mAuth.getCurrentUser().getUid());
+
+        // Увеличиваем значение "bal" на 1 в Firestore
+        userDocument.update(name,bals )
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Успешно увеличили значение "bal" на 1
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Ошибка при обновлении значения "bal"
+                        Log.e("Firestore", "Ошибка при обновлении 'bal': " + e.getMessage());
+                        // Можно показать уведомление об ошибке
+                    }
+                });
+    }
 
 
 

@@ -2,17 +2,26 @@ package com.example.fixcar20;
 
 import static com.example.fixcar20.QuestionAdapter.context;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +36,8 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
     ImageView heart2;
     ImageView heart3;
     int hearts = 3;
+    private int bals = 0;
+    private Long maxBals = 0L;
 
 
     @Override
@@ -39,18 +50,38 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
         heart3 = findViewById(R.id.heart3);
         ///////
         questionAdapter = new QuestionAdapter(list, Question_Capitals_View_Activity.this);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(Question_Capitals_View_Activity.this));
         recyclerView.setAdapter(questionAdapter);
 
+        FirebaseFirestore.getInstance().collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful() && task.getResult().exists()) {
+                    if (task.getResult().get("bal_Capitals") == null) {
+                        FirebaseFirestore.getInstance().collection("users").document(user.getUid()).update("bal_Capitals", 0).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+
+                            }
+                        });
+
+                    } else {
+                        maxBals = (Long) task.getResult().get("bal_Capitals");
+                    }
+                }
+            }
+        });
+
         questionAdapter.OnPressed(new QuestionAdapter.OnPressed() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onanswer1(int position, String answer1, String answer) {
-                if(answer1.equals(answer)){
+                if (answer1.equals(answer)) {
+                    bals++;
 
-                    UserModel.baler(context);
 
                     MotionToast.Companion.createColorToast((Activity) context,
                             "Ответ правелен!",
@@ -60,21 +91,31 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                             MotionToast.SHORT_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
-                    if(list.size() == 1){
+                    if (list.size() == 1) {
                         startActivity(new Intent(Question_Capitals_View_Activity.this, Main_Menu.class));
 
-                    }else{
+                    } else {
                         list.remove(position);
                         questionAdapter.notifyDataSetChanged();
                     }
 
 
-                }
-                else {
-                    switch (hearts){
-                        case 1: Intent intent = new Intent(Question_Capitals_View_Activity.this,Mode_Selection.class);
+                } else {
+                    switch (hearts) {
+                        case 1:
+                            if (maxBals < bals) {
+                                UserModel.baler(bals, "bal_Capitals");
+                            }
+
+
+                            Intent intent = new Intent(Question_Capitals_View_Activity.this, End.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra("bals", String.valueOf(bals));
+                            intent.putExtra("maxBals", String.valueOf(maxBals));
+                            intent.putExtra("context", "Question_Capitals_View_Activity");
                             startActivity(intent);
+                            finish();
                             break;
                         case 2:
                             hearts--;
@@ -87,12 +128,12 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
 
                     }
                     MotionToast.Companion.createColorToast((Activity) context,
-                                                     "Ответ неправильный!",
-                                                     "подумай еще",
-                                                     MotionToastStyle.ERROR,
-                                                     MotionToast.GRAVITY_BOTTOM,
-                                                     MotionToast.SHORT_DURATION,
-                                                     ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
+                            "Ответ неправильный!",
+                            "подумай еще",
+                            MotionToastStyle.ERROR,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.SHORT_DURATION,
+                            ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 //
 
                 }
@@ -101,10 +142,9 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onanswer2(int position, String answer2, String answer) {
-                if(answer2.equals(answer)){
+                if (answer2.equals(answer)) {
+                    bals++;
 
-
-                    UserModel.baler(context);
 
                     MotionToast.Companion.createColorToast((Activity) context,
                             "Ответ правелен!",
@@ -114,18 +154,28 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                             MotionToast.SHORT_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
-                    if(list.size() == 1){
-                        startActivity(new Intent(Question_Capitals_View_Activity.this,Main_Menu.class));
-                    }else {
+                    if (list.size() == 1) {
+                        startActivity(new Intent(Question_Capitals_View_Activity.this, Main_Menu.class));
+                    } else {
                         list.remove(position);
                     }
                     questionAdapter.notifyDataSetChanged();
 
-                }  else {
-                    switch (hearts){
-                        case 1: Intent intent = new Intent(Question_Capitals_View_Activity.this,Mode_Selection.class);
+                } else {
+                    switch (hearts) {
+                        case 1:
+                            if (maxBals < bals) {
+                                UserModel.baler(bals, "bal_Capitals");
+                            }
+
+                            Intent intent = new Intent(Question_Capitals_View_Activity.this, End.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra("bals", String.valueOf(bals));
+                            intent.putExtra("maxBals", String.valueOf(maxBals));
+                            intent.putExtra("context", "Question_Capitals_View_Activity");
                             startActivity(intent);
+                            finish();
                             break;
                         case 2:
                             hearts--;
@@ -153,10 +203,9 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onanswer3(int position, String answer3, String answer) {
-                if(answer3.equals(answer)){
+                if (answer3.equals(answer)) {
+                    bals++;
 
-
-                    UserModel.baler(context);
 
                     MotionToast.Companion.createColorToast((Activity) context,
                             "Ответ правелен!",
@@ -166,17 +215,26 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                             MotionToast.SHORT_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
-                    if(list.size() == 1){
-                        startActivity(new Intent(Question_Capitals_View_Activity.this,Main_Menu.class));
-                    }else {
+                    if (list.size() == 1) {
+                        startActivity(new Intent(Question_Capitals_View_Activity.this, Main_Menu.class));
+                    } else {
                         list.remove(position);
                     }
                     questionAdapter.notifyDataSetChanged();
-                }  else {
-                    switch (hearts){
-                        case 1: Intent intent = new Intent(Question_Capitals_View_Activity.this,Mode_Selection.class);
+                } else {
+                    switch (hearts) {
+                        case 1:
+                            if (maxBals < bals) {
+                                UserModel.baler(bals, "bal_Capitals");
+                            }
+                            Intent intent = new Intent(Question_Capitals_View_Activity.this, End.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra("bals", String.valueOf(bals));
+                            intent.putExtra("maxBals", String.valueOf(maxBals));
+                            intent.putExtra("context", "Question_Capitals_View_Activity");
                             startActivity(intent);
+                            finish();
                             break;
                         case 2:
                             hearts--;
@@ -204,8 +262,9 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onanswer4(int position, String answer4, String answer) {
-                if(answer4.equals(answer)){
-                    UserModel.baler(context);
+                if (answer4.equals(answer)) {
+                    bals++;
+
 
                     MotionToast.Companion.createColorToast((Activity) context,
                             "Ответ правелен!",
@@ -216,18 +275,26 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
 
-
-                    if(list.size() == 1){
-                        startActivity(new Intent(Question_Capitals_View_Activity.this,Main_Menu.class));
-                    }else {
+                    if (list.size() == 1) {
+                        startActivity(new Intent(Question_Capitals_View_Activity.this, Main_Menu.class));
+                    } else {
                         list.remove(position);
                     }
                     questionAdapter.notifyDataSetChanged();
-                }  else {
-                    switch (hearts){
-                        case 1: Intent intent = new Intent(Question_Capitals_View_Activity.this,Mode_Selection.class);
+                } else {
+                    switch (hearts) {
+                        case 1:
+                            if (maxBals < bals) {
+                                UserModel.baler(bals, "bal_Capitals");
+                            }
+                            Intent intent = new Intent(Question_Capitals_View_Activity.this, End.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra("bals", String.valueOf(bals));
+                            intent.putExtra("maxBals", String.valueOf(maxBals));
+                            intent.putExtra("context", "Question_Capitals_View_Activity");
                             startActivity(intent);
+                            finish();
                             break;
                         case 2:
                             hearts--;
@@ -778,7 +845,6 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                 "Черногория",
                 "65ea156589"
         )); //50
-
 
 
         questionAdapter.notifyDataSetChanged();

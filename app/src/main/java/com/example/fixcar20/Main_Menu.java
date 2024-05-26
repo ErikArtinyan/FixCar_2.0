@@ -81,6 +81,7 @@ public class Main_Menu extends AppCompatActivity {
 
         Intent intent = new Intent(Main_Menu.this,Mode_Selection.class);
         startActivity(intent);
+        finish();
 
     }
 
@@ -88,6 +89,7 @@ public class Main_Menu extends AppCompatActivity {
 
         Intent intent = new Intent(Main_Menu.this,Lideri.class);
         startActivity(intent);
+        finish();
 
     }
 }

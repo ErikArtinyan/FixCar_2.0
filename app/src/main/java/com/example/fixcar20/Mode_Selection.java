@@ -27,6 +27,7 @@ public class Mode_Selection extends AppCompatActivity {
             public void onClick(View v) {
                Intent intent = new Intent(Mode_Selection.this, Question_Maps_View_Activity.class);
                 startActivity(intent);
+                finish();
 
             }
         });
@@ -36,6 +37,7 @@ public class Mode_Selection extends AppCompatActivity {
             public void onClick(View v) {
                Intent intent = new Intent(Mode_Selection.this, Question_Flags_View_Activty.class);
                 startActivity(intent);
+                finish();
 
             }
         });
@@ -45,6 +47,7 @@ public class Mode_Selection extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Mode_Selection.this, UsersQuiz.class);
                 startActivity(intent);
+                finish();
 
             }
         });
@@ -79,5 +82,6 @@ public class Mode_Selection extends AppCompatActivity {
            // }
            // // Запускаем уровень
             startActivity(intent);
+        finish();
         }
     }
