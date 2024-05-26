@@ -39,7 +39,7 @@ public class UsersQuiz extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(UsersQuiz.this));
         recyclerView.setAdapter(adapter);
-
+        Log.e("sdfsd","fsfsdfs");
         loadQuizes();
         addQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
