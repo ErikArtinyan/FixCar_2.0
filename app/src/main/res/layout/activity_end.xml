@@ -4,13 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue"
     tools:context=".End">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/score_layout"
+        android:layout_width="@dimen/_200sdp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:background="@drawable/score_bkg"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingVertical="@dimen/_20sdp"
+       >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -21,7 +27,8 @@
                 android:id="@+id/maxScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Max score"
+                android:text="Рекорд"
+                android:textColor="@color/basic_color"
                 android:textSize="@dimen/_30sdp"
                 android:textStyle="bold" />
 
@@ -31,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="0"
+                android:textColor="@color/basic_color"
                 android:textSize="@dimen/_18sdp" />
 
         </LinearLayout>
@@ -45,7 +53,8 @@
                 android:id="@+id/score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="score"
+                android:text="Очки"
+                android:textColor="@color/basic_color"
                 android:textSize="@dimen/_30sdp"
                 android:textStyle="bold" />
 
@@ -55,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="0"
+                android:textColor="@color/basic_color"
                 android:textSize="@dimen/_18sdp" />
 
         </LinearLayout>
@@ -63,23 +73,38 @@
     </LinearLayout>
     <ImageButton
         android:id="@+id/try_again"
-        android:layout_alignParentBottom="true"
+
         android:layout_width="@dimen/_54sdp"
         android:layout_height="@dimen/_54sdp"
         android:background="@drawable/replay_ic"
-        android:backgroundTint="@color/blue"
-        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/white"
+        android:layout_alignEnd="@id/score_layout"
+        android:layout_below="@id/score_layout"
         />
     <ImageButton
         android:id="@+id/home"
-        android:layout_alignParentBottom="true"
+
         android:layout_width="@dimen/_54sdp"
         android:layout_height="@dimen/_54sdp"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="@color/white"
         android:background="@drawable/home_ic"
-        android:layout_alignParentStart="true"
+        android:layout_alignStart="@id/score_layout"
+        android:layout_below="@id/score_layout"
 
       />
+    <TextView
+        android:id="@+id/uraaa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "Поздравляем!"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_35sdp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:visibility="gone"
+
+        />
 
 
 </RelativeLayout>

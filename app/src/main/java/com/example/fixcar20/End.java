@@ -46,6 +46,10 @@ public class End extends AppCompatActivity {
         if (getIntent().getStringExtra("context") != null){
             context = (String) getIntent().getStringExtra("context");
         }
+        if(getIntent().getStringExtra("uraa") != null){
+            TextView uraa = findViewById(R.id.uraaa);
+            uraa.setVisibility(View.VISIBLE);
+        }
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

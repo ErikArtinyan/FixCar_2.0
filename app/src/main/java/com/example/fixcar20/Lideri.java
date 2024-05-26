@@ -50,9 +50,10 @@ public class Lideri extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(Lideri.this, MainActivity.class);
+        Intent intent = new Intent(Lideri.this, Main_Menu.class);
         startActivity(intent);
         overridePendingTransition(0, 0);
+        finish();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -89,7 +90,23 @@ public class Lideri extends AppCompatActivity {
                 //     Log.e("double111","null");
                 // }
 
+
+
                 UserModel model = snapshot.toObject(UserModel.class);
+                int bal_Capitals = 0;
+                int bal_Maps = 0;
+                int bal_flags = 0;
+
+
+                if(snapshot.getDouble("bal_Capitals") != null) {
+                    bal_Capitals = (int) Math.round(snapshot.getDouble("bal_Capitals"));
+                }
+                if(snapshot.getDouble("bal_Maps") != null) {
+                    bal_Maps = (int) Math.round(snapshot.getDouble("bal_Maps"));
+                }
+                if(snapshot.getDouble("bal_flags") != null) {
+                    bal_flags = (int) Math.round(snapshot.getDouble("bal_flags"));
+                }
 
                 //assert geoPoint != null;
                 //Toast.makeText(getContext(), geoPoint.toString(), Toast.LENGTH_SHORT).show();
@@ -98,9 +115,10 @@ public class Lideri extends AppCompatActivity {
                 }
 
 
+
                 list.add(new UserModel(
                         snapshot.getString("name"),
-                        (int)Math.round(snapshot.getDouble("bal")),
+                        bal_Capitals+bal_flags+bal_Maps,
                         model.getEmil(),
                         model.getPassword()
                 ));

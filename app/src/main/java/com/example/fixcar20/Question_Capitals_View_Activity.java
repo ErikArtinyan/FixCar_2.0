@@ -92,7 +92,16 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-                        startActivity(new Intent(Question_Capitals_View_Activity.this, Main_Menu.class));
+                        Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
+                        if(bals >= maxBals){
+                            intent.putExtra("uraa","uraa");
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("bals", String.valueOf(bals));
+                        intent.putExtra("maxBals", String.valueOf(maxBals));
+                        intent.putExtra("context", "Question_Capitals_View_Activity");
+                        finish();
 
                     } else {
                         list.remove(position);
@@ -155,7 +164,16 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-                        startActivity(new Intent(Question_Capitals_View_Activity.this, Main_Menu.class));
+                        Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
+                        if(bals >= maxBals){
+                            intent.putExtra("uraa","uraa");
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("bals", String.valueOf(bals));
+                        intent.putExtra("maxBals", String.valueOf(maxBals));
+                        intent.putExtra("context", "Question_Capitals_View_Activity");
+                        finish();
                     } else {
                         list.remove(position);
                     }
@@ -216,7 +234,17 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-                        startActivity(new Intent(Question_Capitals_View_Activity.this, Main_Menu.class));
+                        Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
+                        if(bals >= maxBals){
+                            intent.putExtra("uraa","uraa");
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("bals", String.valueOf(bals));
+                        intent.putExtra("maxBals", String.valueOf(maxBals));
+                        intent.putExtra("context", "Question_Capitals_View_Activity");
+                        
+                        finish();
                     } else {
                         list.remove(position);
                     }
@@ -276,7 +304,18 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
 
 
                     if (list.size() == 1) {
-                        startActivity(new Intent(Question_Capitals_View_Activity.this, Main_Menu.class));
+                        Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
+                        if(bals >= maxBals){
+                            intent.putExtra("uraa","uraa");
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("bals", String.valueOf(bals));
+                        intent.putExtra("maxBals", String.valueOf(maxBals));
+                        intent.putExtra("context", "Question_Capitals_View_Activity");
+                        
+
+                        finish();
                     } else {
                         list.remove(position);
                     }

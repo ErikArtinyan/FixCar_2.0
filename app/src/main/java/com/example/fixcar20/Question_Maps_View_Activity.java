@@ -108,7 +108,17 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-                        startActivity(new Intent(Question_Maps_View_Activity.this, Main_Menu.class));
+                         Intent intent = new Intent(Question_Maps_View_Activity.this,End.class);
+                        if(bals >= maxBals){
+                            intent.putExtra("uraa","uraa");
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("bals", String.valueOf(bals));
+                        intent.putExtra("maxBals", String.valueOf(maxBals));
+                        intent.putExtra("context", "Question_Maps_View_Activity");
+                        startActivity(intent);
+                        finish();
                     } else {
                         list.remove(position);
                     }
@@ -128,7 +138,6 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                             intent.putExtra("bals", String.valueOf(bals));
                             intent.putExtra("maxBals", String.valueOf(maxBals));
                             intent.putExtra("context", "Question_Maps_View_Activity");
-
                             startActivity(intent);
                             finish();
                             break;
@@ -170,7 +179,18 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-                        startActivity(new Intent(Question_Maps_View_Activity.this, Main_Menu.class));
+                         Intent intent = new Intent(Question_Maps_View_Activity.this,End.class);
+                        if(bals >= maxBals){
+                            intent.putExtra("uraa","uraa");
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("bals", String.valueOf(bals));
+                        intent.putExtra("maxBals", String.valueOf(maxBals));
+                        intent.putExtra("context", "Question_Maps_View_Activity");
+                        startActivity(intent);
+                        
+                        finish();
                     } else {
                         list.remove(position);
                     }
@@ -232,7 +252,17 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-                        startActivity(new Intent(Question_Maps_View_Activity.this, Main_Menu.class));
+                         Intent intent = new Intent(Question_Maps_View_Activity.this,End.class);
+                        if(bals >= maxBals){
+                            intent.putExtra("uraa","uraa");
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("bals", String.valueOf(bals));
+                        intent.putExtra("maxBals", String.valueOf(maxBals));
+                        intent.putExtra("context", "Question_Maps_View_Activity");
+                        startActivity(intent);
+                        finish();
                     } else {
                         list.remove(position);
                     }
@@ -293,7 +323,12 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                             MotionToast.SHORT_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
                     if (list.size() == 1) {
-                        startActivity(new Intent(Question_Maps_View_Activity.this, Main_Menu.class));
+                         Intent intent = new Intent(Question_Maps_View_Activity.this,End.class);
+                        if(bals >= maxBals){
+                            intent.putExtra("uraa","uraa");
+                        }
+                        
+                        finish();
                     } else {
                         list.remove(position);
                     }

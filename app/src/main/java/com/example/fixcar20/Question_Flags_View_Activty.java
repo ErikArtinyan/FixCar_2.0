@@ -95,7 +95,17 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-                        startActivity(new Intent(Question_Flags_View_Activty.this, Main_Menu.class));
+                        Intent intent = new Intent(Question_Flags_View_Activty.this,End.class);
+                        if(bals >= maxBals){
+                            intent.putExtra("uraa","uraa");
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("bals", String.valueOf(bals));
+                        intent.putExtra("maxBals", String.valueOf(maxBals));
+                        intent.putExtra("context", "Question_Flags_View_Activty");
+                        startActivity(intent);
+                        finish();
                     } else {
                         list.remove(position);
                     }
@@ -157,7 +167,17 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-                        startActivity(new Intent(Question_Flags_View_Activty.this, Main_Menu.class));
+                        Intent intent = new Intent(Question_Flags_View_Activty.this,End.class);
+                        if(bals >= maxBals){
+                            intent.putExtra("uraa","uraa");
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("bals", String.valueOf(bals));
+                        intent.putExtra("maxBals", String.valueOf(maxBals));
+                        intent.putExtra("context", "Question_Flags_View_Activty");
+                        startActivity(intent);
+                        finish();
                     } else {
                         list.remove(position);
                     }
@@ -218,7 +238,17 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
 
                     if (list.size() == 1) {
-                        startActivity(new Intent(Question_Flags_View_Activty.this, Main_Menu.class));
+                        Intent intent = new Intent(Question_Flags_View_Activty.this,End.class);
+                        if(bals >= maxBals){
+                            intent.putExtra("uraa","uraa");
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("bals", String.valueOf(bals));
+                        intent.putExtra("maxBals", String.valueOf(maxBals));
+                        intent.putExtra("context", "Question_Flags_View_Activty");
+                        startActivity(intent);
+                        finish();
                     } else {
                         list.remove(position);
                     }
@@ -278,7 +308,17 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                             MotionToast.SHORT_DURATION,
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
                     if (list.size() == 1) {
-                        startActivity(new Intent(Question_Flags_View_Activty.this, Main_Menu.class));
+                        Intent intent = new Intent(Question_Flags_View_Activty.this,End.class);
+                        if(bals >= maxBals){
+                            intent.putExtra("uraa","uraa");
+                        }
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("bals", String.valueOf(bals));
+                        intent.putExtra("maxBals", String.valueOf(maxBals));
+                        intent.putExtra("context", "Question_Flags_View_Activty");
+                        startActivity(intent);
+                        finish();
                     } else {
                         list.remove(position);
                     }
