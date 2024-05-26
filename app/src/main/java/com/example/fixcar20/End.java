@@ -39,9 +39,9 @@ public class End extends AppCompatActivity {
         }
         if (getIntent().getStringExtra("maxBals") != null){
             maxScoreCount.setText(getIntent().getStringExtra("maxBals"));
-            Toast.makeText(this, String.valueOf(getIntent().getStringExtra("maxBals")), Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, String.valueOf(getIntent().getStringExtra("maxBals")), Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this, "null", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "null", Toast.LENGTH_SHORT).show();
         }
         if (getIntent().getStringExtra("context") != null){
             context = (String) getIntent().getStringExtra("context");

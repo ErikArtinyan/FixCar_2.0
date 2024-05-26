@@ -62,26 +62,26 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful() && task.getResult().exists()) {
-                    Toast.makeText(Question_Maps_View_Activity.this, "5", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(Question_Maps_View_Activity.this, "5", Toast.LENGTH_SHORT).show();
                     if (task.getResult().get("bal_Maps") == null) {
-                        Toast.makeText(Question_Maps_View_Activity.this, "1", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(Question_Maps_View_Activity.this, "1", Toast.LENGTH_SHORT).show();
                         FirebaseFirestore.getInstance().collection("users").document(user.getUid()).update("bal_Maps", 0).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                Toast.makeText(Question_Maps_View_Activity.this, "2", Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(Question_Maps_View_Activity.this, "2", Toast.LENGTH_SHORT).show();
                             }
                         });
 
                     } else {
                        maxBals = (Long) task.getResult().get("bal_Maps");
-                        Toast.makeText(Question_Maps_View_Activity.this, String.valueOf(maxBals), Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(Question_Maps_View_Activity.this, String.valueOf(maxBals), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Question_Maps_View_Activity.this, "3", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(Question_Maps_View_Activity.this, "3", Toast.LENGTH_SHORT).show();
             }
         });
         ///////
@@ -125,7 +125,7 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                             if (maxBals < bals) {
                                 UserModel.baler(bals, "bal_Maps");
                             }
-                            Toast.makeText(Question_Maps_View_Activity.this, String.valueOf(maxBals), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(Question_Maps_View_Activity.this, String.valueOf(maxBals), Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(Question_Maps_View_Activity.this, End.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -192,7 +192,7 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                             if (maxBals < bals) {
                                 UserModel.baler(bals, "bal_Maps");
                             }
-                            Toast.makeText(Question_Maps_View_Activity.this, String.valueOf(maxBals), Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(Question_Maps_View_Activity.this, String.valueOf(maxBals), Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(Question_Maps_View_Activity.this, End.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -262,7 +262,7 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                             if (maxBals < bals) {
                                 UserModel.baler(bals, "bal_Maps");
                             }
-                            Toast.makeText(Question_Maps_View_Activity.this, String.valueOf(maxBals), Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(Question_Maps_View_Activity.this, String.valueOf(maxBals), Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(Question_Maps_View_Activity.this, End.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -330,7 +330,7 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                             if (maxBals < bals) {
                                 UserModel.baler(bals, "bal_Maps");
                             }
-                            Toast.makeText(Question_Maps_View_Activity.this, String.valueOf(maxBals), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(Question_Maps_View_Activity.this, String.valueOf(maxBals), Toast.LENGTH_SHORT).show();
 
 
                             Intent intent = new Intent(Question_Maps_View_Activity.this, End.class);

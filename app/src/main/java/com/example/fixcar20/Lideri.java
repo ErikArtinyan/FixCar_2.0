@@ -111,7 +111,7 @@ public class Lideri extends AppCompatActivity {
                 //assert geoPoint != null;
                 //Toast.makeText(getContext(), geoPoint.toString(), Toast.LENGTH_SHORT).show();
                 if(snapshot.getString("name") == null){
-                    Toast.makeText(this, "null", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, "null", Toast.LENGTH_SHORT).show();
                 }
 
 

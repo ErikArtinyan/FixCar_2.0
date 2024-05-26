@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/light_blue"
+
     tools:context=".AddQuiz">
     <RelativeLayout
         android:id="@+id/addQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        android:layout_centerInParent="true"
         >
 
 
@@ -18,10 +20,11 @@
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Question"
+        android:text="Добавить вопрос"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
         android:layout_marginTop="24dp"/>
 
     <EditText
@@ -30,8 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewTitle"
         android:layout_margin="16dp"
-        android:hint="Enter Question"
-
+        android:hint="Введите вопрос (больше 3 символов)"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:inputType="textMultiLine"
         android:maxLength="63"/>
 
@@ -41,7 +45,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextQuestion"
         android:layout_margin="16dp"
-        android:hint="Option 1"
+        android:hint="Вариант 1 (больше 3 символов)"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:maxLength="20"
         android:inputType="textMultiLine"/>
 
@@ -51,7 +57,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextOption1"
         android:layout_margin="16dp"
-        android:hint="Option 2"
+        android:hint="Вариант 2 (больше 3 символов)"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:maxLength="20"
         android:inputType="textMultiLine"/>
 
@@ -61,7 +69,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextOption2"
         android:layout_margin="16dp"
-        android:hint="Option 3"
+        android:hint="Вариант 3 (больше 3 символов)"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:maxLength="20"
         android:inputType="textMultiLine"/>
 
@@ -71,7 +81,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextOption3"
         android:layout_margin="16dp"
-        android:hint="Option 4"
+        android:hint="Вариант 4 (больше 3 символов)"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:maxLength="20"
         android:inputType="textMultiLine"/>
 
@@ -81,19 +93,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextOption4"
         android:layout_margin="16dp"
-        android:hint="Correct Answer"
+        android:hint="Правильный ответ (больше 3 символов)"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:maxLength="20"
         android:inputType="textMultiLine"/>
 
     <Button
-        android:backgroundTint="@color/light_blue"
+        android:backgroundTint="@color/blue"
         android:id="@+id/buttonAddQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextCorrectAnswer"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:text="Add Question"/>
+        android:text="Добавить вопрос"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -109,11 +123,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
-            android:text="Add Quiz"
+            android:text="Создать"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <EditText
+
             android:id="@+id/QuestionName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,8 +137,10 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:maxLength="30"
-            android:hint="Quiz name" />
+            android:hint="Название (больше 3 символов)"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:maxLength="30" />
 
         <Button
             android:id="@+id/buttonAddQuiz"
@@ -132,8 +150,8 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
-            android:backgroundTint="@color/light_blue"
-            android:text="Add Quiz" />
+            android:backgroundTint="@color/blue"
+            android:text="Создать" />
 
 
     </LinearLayout>
@@ -151,7 +169,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/light_blue"
-        android:text="finish" />
+        android:backgroundTint="@color/blue"
+        android:text="Завершить" />
 
 </RelativeLayout>

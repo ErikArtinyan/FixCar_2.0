@@ -220,7 +220,7 @@ public class OnlineQuestiosActivity extends AppCompatActivity {
                                     models.getOnlineAnswers2().get(i), models.getOnlineAnswers3().get(i), models.getOnlineAnswers4().get(i),
                                     "", models.getQuestions().get(i), models.getQuestionID());
                             if(model == null){
-                                Toast.makeText(OnlineQuestiosActivity.this, "null", Toast.LENGTH_SHORT).show();
+                         //       Toast.makeText(OnlineQuestiosActivity.this, "null", Toast.LENGTH_SHORT).show();
                             }
                             list.add(model);
 
@@ -231,7 +231,7 @@ public class OnlineQuestiosActivity extends AppCompatActivity {
 
 
                     } else {
-                        Toast.makeText(OnlineQuestiosActivity.this, "null", Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(OnlineQuestiosActivity.this, "null", Toast.LENGTH_SHORT).show();
                     }
 
                 }

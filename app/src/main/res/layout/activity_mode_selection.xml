@@ -14,7 +14,7 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:textSize="@dimen/_20sdp"
-        android:text="Выберите режим"
+        android:text="Выберите тему"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp">
     </TextView>
