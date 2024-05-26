@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -112,6 +113,7 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                         if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
                             UserModel.baler(bals, "bal_Maps");
+                            Log.e("sadsa","asdadas");
 
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
