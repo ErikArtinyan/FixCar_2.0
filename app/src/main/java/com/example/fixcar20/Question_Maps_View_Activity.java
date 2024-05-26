@@ -112,6 +112,7 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                         if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
                             UserModel.baler(bals, "bal_Maps");
+
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
