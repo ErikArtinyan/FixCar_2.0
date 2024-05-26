@@ -93,8 +93,9 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
 
                     if (list.size() == 1) {
                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
-                        if(bals >= maxBals){
+                       if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
+                            UserModel.baler(bals, "bal_Capitals");
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -166,8 +167,9 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
 
                     if (list.size() == 1) {
                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
-                        if(bals >= maxBals){
+                       if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
+                            UserModel.baler(bals, "bal_Capitals");
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -237,8 +239,9 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
 
                     if (list.size() == 1) {
                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
-                        if(bals >= maxBals){
+                       if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
+                            UserModel.baler(bals, "bal_Capitals");
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -307,8 +310,9 @@ public class Question_Capitals_View_Activity extends AppCompatActivity {
 
                     if (list.size() == 1) {
                         Intent intent = new Intent(Question_Capitals_View_Activity.this,End.class);
-                        if(bals >= maxBals){
+                       if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
+                            UserModel.baler(bals, "bal_Capitals");
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
