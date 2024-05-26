@@ -96,8 +96,9 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
 
                     if (list.size() == 1) {
                         Intent intent = new Intent(Question_Flags_View_Activty.this,End.class);
-                        if(bals >= maxBals){
+                          if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
+                            UserModel.baler(bals, "bal_flags");
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -168,8 +169,9 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
 
                     if (list.size() == 1) {
                         Intent intent = new Intent(Question_Flags_View_Activty.this,End.class);
-                        if(bals >= maxBals){
+                          if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
+                            UserModel.baler(bals, "bal_flags");
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -239,8 +241,9 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
 
                     if (list.size() == 1) {
                         Intent intent = new Intent(Question_Flags_View_Activty.this,End.class);
-                        if(bals >= maxBals){
+                          if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
+                            UserModel.baler(bals, "bal_flags");
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -309,6 +312,13 @@ public class Question_Flags_View_Activty extends AppCompatActivity {
                             ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helveticabold));
                     if (list.size() == 1) {
                         Intent intent = new Intent(Question_Flags_View_Activty.this,End.class);
+<<<<<<< HEAD
+=======
+                          if(bals >= maxBals){
+                            intent.putExtra("uraa","uraa");
+                            UserModel.baler(bals, "bal_flags");
+                        }
+>>>>>>> origin/master
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra("bals", String.valueOf(bals));

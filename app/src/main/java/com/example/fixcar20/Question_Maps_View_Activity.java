@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -111,6 +112,9 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                          Intent intent = new Intent(Question_Maps_View_Activity.this,End.class);
                         if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
+                            UserModel.baler(bals, "bal_Maps");
+                            Log.e("sadsa","asdadas");
+
                         }
 
                         finish();
@@ -178,6 +182,7 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                          Intent intent = new Intent(Question_Maps_View_Activity.this,End.class);
                         if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
+                            UserModel.baler(bals, "bal_Maps");
                         }
 
                         finish();
@@ -245,6 +250,7 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                          Intent intent = new Intent(Question_Maps_View_Activity.this,End.class);
                         if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
+                            UserModel.baler(bals, "bal_Maps");
                         }
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -315,6 +321,7 @@ public class Question_Maps_View_Activity extends AppCompatActivity {
                          Intent intent = new Intent(Question_Maps_View_Activity.this,End.class);
                         if(bals >= maxBals){
                             intent.putExtra("uraa","uraa");
+                            UserModel.baler(bals, "bal_Maps");
                         }
 
                         finish();
